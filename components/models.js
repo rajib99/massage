@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Model from './Model';
+import Model from './model';
 import utilStyles from  '../styles/utils.module.css';
 
 
