@@ -1,0 +1,12 @@
+.profileEdit{
+
+}
+
+.profileEdit ul li{ display: inline-block }
+.profileEdit ul li img{ width: 100px; }
+.availBox{ display: flex; align-items: flex-start; }
+.availList{ display: flex; align-items: flex-start; justify-content:space-around; border-bottom: 1px solid #ccc; }
+.timeList{ list-style: none; margin: 10px 30px; }
+.availBox input{ width: 200px;}
+.timeBox2{ margin-left: 20px; margin-right: 20px; }
+.save{ margin-top: 30px; padding: 8px 20px; }

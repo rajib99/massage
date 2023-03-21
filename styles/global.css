@@ -1,0 +1,116 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+    background: antiquewhite;
+    padding: 20px;
+    text-align: center;
+}
+
+.button {
+  cursor: pointer;
+  background-color: #4CAF50; 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.col2{ display: flex; padding: 20px; }
+.col2 div{ padding: 20px 40px; }
+.cardinfo {padding: 0 !important; margin-bottom: 20px; }
+.cardinfo input { margin-bottom: 0 !important; margin-right: 10px; }
+label{display: block;}
+input{ display: block; }
+
+.menu{ display: flex; }
+.menu li{ padding: 0 30px; font-size: 1rem; list-style: none;}
+.menu li a{ font-size: 1rem;}
+
+
+
+
+
+
+.registration-container {
+  width: 600px;
+  margin: 50px auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"],textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.service{ display: flex; align-items: center; }
+.service input[type="text"]{ width: 60px;  }
+.service input[type="checkbox"]{ position: relative; top: -5px; }
+.pricebox{ margin-left: 20px; display: flex; margin-top: 13px; } 
+.admin-menu { margin-right: 50px; }
+.admin-menu a{ display: block; font-size: 16px; }
+.main-admin-layout{ display: flex;}
+
+.fullwidth{ width: 150%;}
