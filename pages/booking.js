@@ -15,7 +15,7 @@ import Loading from '../components/Loading';
 
 function Booking() {
 
-    const [formData, setFormData] = useState({name: '', email: '', phone: '', address: '', cardname: '', card: '', expiration: '', cvv: '', password: ''});  
+    const [formData, setFormData] = useState({name: '', email: '', phone: '', address: '', cardname: '', card: '', expiration: '', cvv: '', password: '', selected_model: ''});  
 
     const [succMessage, setSuccMessage] = useState(null);
     const [modelID, setModelID] = useState(null);
@@ -42,7 +42,7 @@ function Booking() {
 
     const router = useRouter();
     const {singleApiUrl} = router.query;
-    console.log('urs', singleApiUrl);
+    // console.log('urs', singleApiUrl);
 
    
     const handleChange = (e) => {
@@ -112,6 +112,9 @@ function Booking() {
               // window.location.href = location.state ? location.state.from.pathname : '/';
               console.log('shos', usertoken);
               setLoading(false);
+        }else{
+          setLoading(false);
+          setSuccMessage("Error! Please contact support.");
         }
     
     
@@ -212,7 +215,7 @@ the model accepting the request. We will save your card for now in a secure serv
               <label for="email">Email:</label>
               <input type="email" id="email" onChange={handleChange} name="email" value={formData.email}/>
 
-              <label for="phone">Phone:</label>
+              <label for="phone">Phone: (Don't add country code +1, don't add white space ) </label>
               <input type="tel" id="phone" onChange={handleChange} name="phone" value={formData.phone}/>
 
               <label for="address">Home Address:</label>

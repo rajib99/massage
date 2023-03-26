@@ -3,7 +3,7 @@ import utilStyles from  '../styles/utils.module.css';
 
 
 function SingleModelView(model) {
-  console.log('sssss', model, model[0].name);
+  //console.log('sssss', model, model[0].name);
   return (
     <div>
       <img className={utilStyles.modelimg} src={model[0].picture_url} alt={model[0].name} />
