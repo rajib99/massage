@@ -13,15 +13,106 @@ export default function Home() {
   const originalUrl = 'https://spagram.com/api/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
-  const [area, setArea] = useState('');
+  // const [area, setArea] = useState('');
   const [gender, setGender] = useState('');
   const [race, setRace] = useState('');
   const [height, setHeight] = useState('');
+  const [rate, setRate] = useState('');
   const [filteredUrl, setFilteredUrl] = useState(originalUrl);
   const [startDate, setStartDate] = useState(null);
   const [time, setTime] = useState('');
   const [serviceName, setServiceName] = useState('');
   const [photoOnlyView, setPhotoOnlyView] = useState(false);
+  
+  const [selectedLocation, setSelectedLocation] = useState(false);
+  const [area, setArea] = useState('');
+  const [expandedColumn, setExpandedColumn] = useState(null);
+  const [expandedSubColumn, setExpandedSubColumn] = useState(null);
+
+  const options = [
+    {
+      title: 'New York',
+      items: [
+        'Albany',
+        'Binghamton',
+        'Buffalo',
+        'Catskills',
+        'Chautauqua',
+        'Elmira-corning',
+        'Finger lakes',
+        'Glens falls',
+        'Hudson valley',
+        'Ithaca',
+        'Long island',
+        {
+          title: 'New York City',
+          items: ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island', 'New Jersey', 'Long Island', 'Westchester', 'Fairfield'],
+        },
+        'Oneonta',
+        'Plattsburgh-adirondacks',
+        'Potsdam-canton-massena',
+        'Rochester',
+        'Syracuse',
+        'Twin tiers NY/PA',
+        'Utica-rome-oneida',
+        'Watertown',
+      ],
+    },
+    {
+      title: 'New Jersey',
+      items: ['Central NJ', 'Jersey shore', 'North jersey', 'South jersey', 'NJ suburbs of NYC (subregion of NYC site)'],
+    },
+    {
+      title: 'Connecticut',
+      items: ['Eastern CT', 'Hartford', 'New haven', 'Northwest CT', 'Fairfield county (subregion of NYC site)'],
+    },
+  ];
+
+  const handleClick = (option) => {
+    setArea(option);
+    setSelectedLocation(false);
+  };
+
+  const toggleColumn = (index) => {
+    if (expandedColumn === index) {
+      setExpandedColumn(null);
+    } else {
+      setExpandedColumn(index);
+    }
+  };
+
+  const toggleSubColumn = (index) => {
+    if (expandedSubColumn === index) {
+      setExpandedSubColumn(null);
+    } else {
+      setExpandedSubColumn(index);
+    }
+  };
+
+  const renderMenuItem = (item, index) => {
+    if (typeof item === 'string') {
+      return (
+        <li key={item}>
+          <button onClick={() => handleClick(item)}>{item}</button>
+        </li>
+      );
+    } else {
+      return (
+        <li key={item.title}>
+          <button onClick={() => toggleSubColumn(index)}>{item.title}</button>
+          {expandedSubColumn === index && (
+            <ul className="sub-menu">
+              {item.items.map((subItem) => (
+                <li key={subItem}>
+                  <button onClick={() => handleClick(subItem)}>{subItem}</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      );
+    }
+  };
 
 
   //area, gender, race, height
@@ -64,6 +155,10 @@ export default function Home() {
     setHeight(e.target.value)
   }
 
+  function handleRateChange(e){
+    setRate(e.target.value)
+  }
+
   function handleTimeChange(e){
 
   const date = new Date();
@@ -87,40 +182,83 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        Filter down a model and sechedule a massage with him/her.
+        Search for massage anywhere in New York, New Jersey, and Connecticut.
       </section>
+      
       <section className='filter-container'> 
-        <div className={utilStyles.filterLabels}> <div>Filters:</div> 
+        <div className={utilStyles.filterLabels}> 
           <div className={utilStyles.filterLabel}> 
-            <select onChange={(e) => handleAreaChange(e)}> 
-              <option value=""> Location </option> 
-              <option> Manhattan </option> 
-              <option> Brooklyn </option> 
-              <option> Queens </option> 
-              <option> Bronx </option> 
-              <option> Staten Island </option> 
-            </select> 
+            <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg> </div>
+          <div>
+           
+      <div className={ selectedLocation? 'mega-menu visible' : ' mega-menu hide' }>
+        {options.map((category, index) => (
+          <div key={index} className="mega-menu-column">
+            <button
+              className="mega-menu-title"
+              onClick={() => toggleColumn(index)}
+            >
+              {category.title}
+            </button>
+            {expandedColumn === index && (
+              <ul>
+                {category.items.map((item, itemIndex) =>
+                  renderMenuItem(item, itemIndex)
+                )}
+              </ul>
+            )}
+          </div>
+        ))}
+      </div>
+      </div>
           </div>  
           <div className={utilStyles.filterLabel}> 
             <select onChange={(e) => handleGenderChange(e)}> 
               <option> Gender </option> 
               <option> Female </option> 
               <option> Male </option> 
+              <option> Trans </option> 
               </select>  
             </div>  
           <div className={utilStyles.filterLabel}> 
             <select onChange={(e) => handleRaceChange(e)} > 
-              <option> Race </option> 
-              <option> White </option> 
-              <option> Black </option> 
+              <option> Ethnicities </option> 
+              <option>African</option>
+              <option>Arab</option>
+              <option>Asian</option>
+              <option>Black</option>
+              <option>Caucasian (White)</option>
+              <option>East Asian</option>
+              <option>Hispanic or Latino</option>
+              <option>Indigenous</option>
+              <option>Indian</option>
+              <option>Middle Eastern</option>
+              <option>Native American</option>
+              <option>Pacific Islander</option>
+              <option>South Asian</option>
+              <option>Southeast Asian</option>
+              <option>Other</option>
+
             </select>  
           </div> 
           <div className={utilStyles.filterLabel}> 
             <select onChange={(e) => handleHeightChange(e)} > 
-              <option> Height </option> 
-              <option> over 6 feet </option> 
-              <option> over 5 feet  </option> 
-              <option> over 4 feet  </option> 
+              <option> Age </option> 
+              <option> 18-19 </option> 
+              <option> 20-30 </option> 
+              <option> 30-40 </option> 
+              <option> 40-50 </option> 
+              <option> 60+ </option> 
+            </select> 
+          </div> 
+          <div className={utilStyles.filterLabel}> 
+            <select onChange={(e) => handleRateChange(e)} > 
+              <option> Rate </option> 
+              <option> 100-200 </option> 
+              <option> 200-300 </option> 
+              <option> 400-500 </option> 
+              <option> 500-600 </option> 
+              <option> 700-1000 </option> 
             </select> 
           </div> 
           <div className={utilStyles.filterLabel}> 
@@ -165,17 +303,17 @@ export default function Home() {
             </select> 
           </div>  */}
 
-          <div onClick={handleFilter} className='button'> Filter </div>
+          <div onClick={handleFilter} className='buttont filterbtn'> Filter </div>
         </div>
       </section>
       <section className='viewby'>
           {
-          photoOnlyView?    <div className='button' onClick={()=>setPhotoOnlyView(false)}> View Photo & details </div>
+          photoOnlyView?    <div className='buttont' onClick={()=>setPhotoOnlyView(false)}> View Model Photo & details </div>
           :  
-           <div className='button' onClick={()=>setPhotoOnlyView(true)}> View by Photo </div> 
+           <div className='buttont' onClick={()=>setPhotoOnlyView(true)}> Hide Model description </div> 
           }
       </section>
-      <section>
+      <section className='mtop10'>
         <Models photoOnlyView={photoOnlyView} apiUrl={filteredUrl} />
       </section>
     </Layout>

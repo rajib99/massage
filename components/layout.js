@@ -28,26 +28,29 @@ export default function Layout({ children, home }) {
       <header className={styles.header}>
         {home ? (
           <>
+          <Link href="https://www.tristatemassage.com/">
             <Image
-              priority
-              src="/images/logo.png"
-              className={utilStyles.borderCircle}
-              height={81}
-              width={300}
-              alt=""
-            />
+                priority
+                src="/images/logo.png"
+                className={utilStyles.borderCircle}
+                height={81}
+                width={300}
+                alt=""
+              />
+          </Link>
+            
             <ul className='menu'>
-                <li> <Link href='/'> Home </Link> </li>
-                <li> <Link href='/'> About </Link> </li>
-                <li> <Link href='/'> Contact  </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com/'> Home </Link> </li>
+                
                 <li> <Link href='/customer-login'> Customer Login/Register </Link> </li>
                 <li> <Link href='/model-registration'> Model Login/Register </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com/contact'> Contact  </Link> </li>
             </ul>
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.heading2Xl}>  <Link href="#" className='buttont buttont_active hover_none'>  {name} <span class="tooltiptext">Select a model from next section </span> </Link> | <Link className='buttont' href="https://www.tristatemassage.com/contact"> In Call Location </Link> </h1>
           </>
         ) : (
           <>
-            <Link href="/">
+            <Link href="https://www.tristatemassage.com/">
               <Image
                 priority
                 src="/images/logo.png"
@@ -58,11 +61,10 @@ export default function Layout({ children, home }) {
               />
             </Link>
             <ul className='menu'>
-                <li> <Link href='/'> Home </Link> </li>
-                <li> <Link href='/'> About </Link> </li>
-                <li> <Link href='/'> Contact  </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com/'> Home </Link> </li>
                 <li> <Link href='/customer-login'> Customer Login/Register </Link> </li>
-                <li> <Link href='/model-login'> Model Login/Register </Link> </li>
+                <li> <Link href='/model-registration'> Model Login/Register </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com//contact'> Contact  </Link> </li>
             </ul>
             <h2 className={utilStyles.headingLg}>
               <Link href="/" className={utilStyles.colorInherit}>
