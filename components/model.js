@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import utilStyles from  '../styles/utils.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 
 
 
 //
-function Model({ photoOnlyView, id, picture_url, name, service_area, gender, color, height, availability }) {
+function Model({ photoOnlyView, id, picture_url, name, service_area, price, services_prices, gender, color, height, availability }) {
 
     const router = useRouter();
     const [isActive, setActive] = useState(true);
@@ -36,11 +37,17 @@ function Model({ photoOnlyView, id, picture_url, name, service_area, gender, col
       <img className={utilStyles.modelimg} src={picture_url} alt={name} />
       <div  className={photoOnlyView? 'hide': 'show'}>
         <h2>{name}</h2>
-        <p>Service Area: {service_area}</p>
-        <p>Sex: {gender}</p>
-        <p>Color: {color}</p>
-        <p>Height: {height}</p>
-        <p>Availability: TBD</p>
+        <div className={utilStyles.location}> <Image
+                priority
+                src="/images/location.png"
+                className={utilStyles.borderCircle}
+                height={20}
+                width={20}
+                alt=""
+              /> 
+     <span> {service_area} </span>
+    </div>
+        {/* <p>{services_prices}</p> */}
         <p><button className='button' onClick={handleClick}> Select </button></p>
       </div>
       

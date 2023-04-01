@@ -87,3 +87,13 @@
   .modelimg{
     width: 100%;
   }
+
+  .location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.model p{ 
+  margin: 15px auto;
+}
