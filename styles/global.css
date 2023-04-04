@@ -250,3 +250,8 @@ input[type="submit"]:hover {
 .mega-menu li{ margin-left: 20px; }
 
 .react-datepicker-wrapper input{ position: relative; top: 9px; }
+
+.viewbyicon{ width: 100%; text-align: right; cursor: pointer; }
+.viewbyicon img{ display: inline; }
+
+

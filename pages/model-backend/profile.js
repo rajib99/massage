@@ -4,6 +4,7 @@ import Layout, { siteTitle } from '../../components/model/layout';
 import modelCss from '../../styles/model.module.css';
 import ServicePricesUI from '../../components/servicePricesUI';
 import withAuth from "../../components/admin/withAuth";
+import Ethnicities from "../../components/data/ethnicities.js";
 import axios from 'axios';
 
 
@@ -22,6 +23,7 @@ const Profile = () => {
 
   // [{"id": "1", "name":"Swedish massage","Price":"44"}, {"id": "2", "name":"Deep massage","Price":"144"}]
 
+  // const [selectedAreas, setSelectedAreas] = useState([]);
   const [servPri, setServPri] = useState(null);
   const [inputs, setInputs] = useState([]);
   const [file, setFile] = useState(null);
@@ -35,6 +37,11 @@ const Profile = () => {
     phone: '',
     email: '',
     gender: '',
+    selectedAreas: Array(),
+    location_type: Array(),
+    price: '',
+    ethnicity: '',
+    age: '',
     height: '',
     color: '',
     about: '',
@@ -43,10 +50,63 @@ const Profile = () => {
     picture_url: ''
   });
 
+  const areas = [
+    {
+      label: 'New York',
+      options: [
+        'Albany',
+        'Binghamton',
+        'Buffalo',
+        'Catskills',
+        'Chautauqua',
+        'Elmira-corning',
+        'Finger lakes',
+        'Glens falls',
+        'Hudson valley',
+        'Ithaca',
+        'Long island',
+        'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island', 'New Jersey', 'Long Island', 'Westchester', 'Fairfield',
+        'Oneonta',
+        'Plattsburgh-adirondacks',
+        'Potsdam-canton-massena',
+        'Rochester',
+        'Syracuse',
+        'Twin tiers NY/PA',
+        'Utica-rome-oneida',
+        'Watertown',
+      ],
+    },
+    {
+      label: 'New Jersey',
+      options: ['Central NJ', 'Jersey shore', 'North jersey', 'South jersey', 'NJ suburbs of NYC (subregion of NYC site)'],
+    },
+    {
+      label: 'Connecticut',
+      options: ['Eastern CT', 'Hartford', 'New haven', 'Northwest CT', 'Fairfield county (subregion of NYC site)'],
+    },
+  ];
+
+
+  const handleAreaChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+    setModel({...model, selectedAreas: selectedOptions});
+
+  };
+
+  const handleLocationTypeChange = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+    setModel({...model, location_type: selectedOptions});
+
+  };
 
   const handleInputChange = (e) => {
     setModel({...model, [e.target.name]:  e.target.value})
   }
+
 
   const handleFileUpload = (e) => {
 
@@ -67,11 +127,15 @@ const Profile = () => {
     e.preventDefault();
     try {
       model.modelId = id;
+      model.selectedAreas = model.selectedAreas.toString();
+      model.location_type = model.location_type.toString();
       // model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
       const response = await axios.post('https://spagram.com/api/update-model.php', model);
       setMessage('Update successful')
+      model.selectedAreas = model.selectedAreas.split(",");
+      model.location_type = model.location_type.split(",");
     } catch (error) {
       console.error(error);
     }
@@ -120,18 +184,20 @@ const Profile = () => {
   useEffect(() => {
     const modelid = localStorage.getItem("token");
     setId(modelid);
-    let url = "https://spagram.com/api/single-model.php?id=" + id;
+    let url = "https://spagram.com/api/single-model.php?id=" + modelid;
     
-    const getData = async (id) => {
+    const getData = async () => {
         try {
           setLoading(true);
           const response = await axios.get(url);
           const result = response.data;
           // setModel({...model, phone: '89999'})
-          
-          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, 
-            height: result.height, color: result.color, about: result.about, service_area: result.service_area, 
+          let areaArr = result.service_area.split(",");
+          let locationTypeArr = result.location_type.split(",");
+          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas: areaArr, location_type: locationTypeArr,  price: result.price, ethnicity: result.ethnicity, 
+            age: result.age, height: result.height, color: result.color, about: result.about, service_area: result.service_area, 
             servicePrices: result.services_prices, picture_url: result.picture_url })
+
             
             setServPri(result.services_prices)
           
@@ -146,7 +212,7 @@ const Profile = () => {
       };
 
     getData();
-  }, [id]);
+  }, []);
 
   return (
     <Layout profile>
@@ -166,13 +232,55 @@ const Profile = () => {
                       <option value=""> Select</option> 
                       <option selected={'Female' === model.gender}> Female </option> 
                       <option selected={'Male' === model.gender}> Male </option> 
+                      <option selected={'Trans' === model.gender}> Trans </option> 
                     </select>  </li> </ul>
-          <ul> <li> Height </li> <li> <select name='height' onChange={handleInputChange}> 
-                      <option> Height </option>
-                      <option selected={'over 6 feet' === model.height}> over 6 feet </option>
-                      <option selected={'over 5 feet' === model.height}> over 5 feet  </option>
-                      <option selected={'over 4 feet' === model.height}> over 4 feet  </option>
+
+          <ul> <li> Area you serve <br/>(press and hold ctrl/command to select multiple location) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
+          {
+          areas.map((group) => (
+          <optgroup key={group.label} label={group.label}>
+            {group.options.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+        {console.log('aresss', model.selectedAreas)}
+          
+          </select>  </li> </ul>
+
+          <ul> <li> Location Type </li> <li> <select name='gender' multiple value={model.location_type} onChange={handleLocationTypeChange}> 
+                      <option value=""> Select</option> 
+                      <option selected={'inCall' === model.gender}> inCall </option> 
+                      <option selected={'outCall' === model.gender}> outCall </option> 
+                      <option value="Rent" selected={'Rented Room' === model.gender}> Rented Room </option> 
                     </select>  </li> </ul>
+                   
+          <ul> <li> Rate per hour </li> <li>
+                <input type="text" onChange={handleInputChange} name="price" value={model.price}></input>  
+                    </li> 
+            </ul>
+
+            <ul> <li> Ethnicity </li> <li> <select name='ethnicity' onChange={handleInputChange}> 
+                      <option value=""> Select</option> 
+                      {
+                        Ethnicities.map(item => (
+                          <option selected={ item === model.ethnicity}> {item} </option> 
+                        ))
+                      }  
+                     
+
+                    </select>  </li> </ul> 
+                         
+            <ul> <li> Age </li> <li>
+                <input type="text" onChange={handleInputChange} name="age" value={model.age}></input>  
+                    </li> 
+            </ul>
+
+          <ul> <li> Height (in feet, ie 5.7) </li> <li>
+          <input type="text" onChange={handleInputChange} name="height" value={model.height}></input>  
+              </li> </ul>
           <ul> <li> Color </li> <li> 
           <select name='color' onChange={handleInputChange}> 
                       <option> Color </option>
@@ -195,7 +303,7 @@ const Profile = () => {
           
           
            
-          <button className='button' type="submit">Submit ss</button>
+          <button className='button' type="submit">Update Profile </button>
           <p className='message'> {message} </p>
         </form>
        : <h2> Loading....  </h2> }

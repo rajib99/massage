@@ -46,7 +46,6 @@ export default function Layout({ children, home }) {
                 <li> <Link href='/model-registration'> Model Login/Register </Link> </li>
                 <li> <Link href='https://www.tristatemassage.com/contact'> Contact  </Link> </li>
             </ul>
-            <h1 className={utilStyles.heading2Xl}>  <Link href="#" className='buttont buttont_active hover_none'>  {name} <span class="tooltiptext">Select a model from next section </span> </Link> | <Link className='buttont' href="https://www.tristatemassage.com/contact"> In Call Location </Link> </h1>
           </>
         ) : (
           <>

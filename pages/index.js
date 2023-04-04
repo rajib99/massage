@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
 import Layout, { siteTitle } from '../components/layout';
 import DatePicker from 'react-datepicker';
 import utilStyles from '../styles/utils.module.css';
@@ -10,22 +11,24 @@ import moment  from 'moment-timezone';
 
 export default function Home() {
 
-  const originalUrl = 'https://spagram.com/api/models.php';
+  const originalUrl = 'https://spagram.com/api/filter-models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   // const [area, setArea] = useState('');
   const [gender, setGender] = useState('');
-  const [race, setRace] = useState('');
+  const [ethnicity, setEthnicity] = useState('');
   const [height, setHeight] = useState('');
-  const [rate, setRate] = useState('');
   const [filteredUrl, setFilteredUrl] = useState(originalUrl);
   const [startDate, setStartDate] = useState(null);
   const [time, setTime] = useState('');
   const [serviceName, setServiceName] = useState('');
   const [photoOnlyView, setPhotoOnlyView] = useState(false);
   
-  const [selectedLocation, setSelectedLocation] = useState(false);
-  const [area, setArea] = useState('');
+  const [age, setAge] = useState('');
+  const [price, setPrice] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [location_type, setLocation_type] = useState('');
+  const [area, setArea] = useState('Location');
   const [expandedColumn, setExpandedColumn] = useState(null);
   const [expandedSubColumn, setExpandedSubColumn] = useState(null);
 
@@ -145,10 +148,15 @@ export default function Home() {
   }
   function handleGenderChange(e){
     setGender(e.target.value);
+    // setFilteredUrl(originalUrl + '?service_area=' + area + '&gender=' + gender + '&race=' + race + '&height=' + height + '&serviceName=' + serviceName);
+  }
+  
+  function handleLocTypeChange(e){
+    setLocation_type(e.target.value);
   }
 
-  function handleRaceChange(e){
-    setRace(e.target.value);
+  function handleEthnicityChange(e){
+    setEthnicity(e.target.value);
   }
 
   function handleHeightChange(e){
@@ -158,6 +166,14 @@ export default function Home() {
   function handleRateChange(e){
     setRate(e.target.value)
   }
+
+  function handleAgeChange(e){
+    setAge(e.target.value);
+  }
+  function handlePriceChange(e){
+    setPrice(e.target.value);
+  }
+
 
   function handleTimeChange(e){
 
@@ -176,6 +192,23 @@ export default function Home() {
   
   }
 
+  useEffect(() => {
+    let mdy = "";
+      if(startDate !== null){
+        const timestamp =  Date.parse(startDate);
+        const date =  new Date(timestamp);
+  
+        const month = date.getMonth() + 1; // Months are zero-based in JavaScript
+        const day = date.getDate();
+        const year = date.getFullYear();
+
+        mdy = `${month}/${day}/${year}`;
+        console.log('mdy', mdy);
+
+      }
+      setFilteredUrl(originalUrl + '?service_area=' + area + '&location_type=' + location_type + '&gender=' + gender + '&ethnicity=' + ethnicity + '&age=' + age + '&price=' + price + '&date=' + mdy  + '&time=' + time);
+  }, [area, gender, ethnicity, location_type, age, price, startDate, time]);
+
   return (
     <Layout home>
       <Head>
@@ -188,7 +221,7 @@ export default function Home() {
       <section className='filter-container'> 
         <div className={utilStyles.filterLabels}> 
           <div className={utilStyles.filterLabel}> 
-            <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg> </div>
+            <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> {area} <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg> </div>
           <div>
            
       <div className={ selectedLocation? 'mega-menu visible' : ' mega-menu hide' }>
@@ -213,16 +246,24 @@ export default function Home() {
       </div>
           </div>  
           <div className={utilStyles.filterLabel}> 
+            <select onChange={(e) => handleLocTypeChange(e)}> 
+              <option>Location Type</option> 
+              <option>inCall</option> 
+              <option>outCall</option> 
+              <option>Rent</option> 
+            </select>  
+          </div>  
+          <div className={utilStyles.filterLabel}> 
             <select onChange={(e) => handleGenderChange(e)}> 
-              <option> Gender </option> 
-              <option> Female </option> 
-              <option> Male </option> 
-              <option> Trans </option> 
-              </select>  
+              <option>Gender</option> 
+              <option>Female</option> 
+              <option>Male</option> 
+              <option>Trans</option> 
+            </select>  
             </div>  
           <div className={utilStyles.filterLabel}> 
-            <select onChange={(e) => handleRaceChange(e)} > 
-              <option> Ethnicities </option> 
+            <select onChange={(e) => handleEthnicityChange(e)} > 
+              <option>Ethnicity</option> 
               <option>African</option>
               <option>Arab</option>
               <option>Asian</option>
@@ -242,7 +283,7 @@ export default function Home() {
             </select>  
           </div> 
           <div className={utilStyles.filterLabel}> 
-            <select onChange={(e) => handleHeightChange(e)} > 
+            <select onChange={(e) => handleAgeChange(e)} > 
               <option> Age </option> 
               <option> 18-19 </option> 
               <option> 20-30 </option> 
@@ -252,7 +293,7 @@ export default function Home() {
             </select> 
           </div> 
           <div className={utilStyles.filterLabel}> 
-            <select onChange={(e) => handleRateChange(e)} > 
+            <select onChange={(e) => handlePriceChange(e)} > 
               <option> Rate </option> 
               <option> 100-200 </option> 
               <option> 200-300 </option> 
@@ -265,7 +306,7 @@ export default function Home() {
             <DatePicker
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                dateFormat="MMMM d, yyyy"
+                dateFormat="yyyy-MM-dd"
                 isClearable
                 placeholderText="Date"
                 />   
@@ -303,14 +344,16 @@ export default function Home() {
             </select> 
           </div>  */}
 
-          <div onClick={handleFilter} className='buttont filterbtn'> Filter </div>
+          {/* <div onClick={handleFilter} className='buttont filterbtn'> Filter </div> */}
         </div>
       </section>
       <section className='viewby'>
           {
-          photoOnlyView?    <div className='buttont' onClick={()=>setPhotoOnlyView(false)}> View Model Photo & details </div>
+          photoOnlyView?    <div className='viewbyicon' title="View Model Photo & details" onClick={()=>setPhotoOnlyView(false)}>  <Image alt='More Info' src="/images/info.png"
+          width={30} height={30} />  </div>
           :  
-           <div className='buttont' onClick={()=>setPhotoOnlyView(true)}> Hide Model description </div> 
+           <div className='viewbyicon' title=" Hide Model description" onClick={()=>setPhotoOnlyView(true)}> <Image alt='More Info' src="/images/info.png"
+           width={30} height={30} /> </div> 
           }
       </section>
       <section className='mtop10'>
