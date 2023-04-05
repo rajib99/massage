@@ -254,7 +254,6 @@ const Profile = () => {
                       <option value=""> Select</option> 
                       <option selected={'inCall' === model.gender}> inCall </option> 
                       <option selected={'outCall' === model.gender}> outCall </option> 
-                      <option value="Rent" selected={'Rented Room' === model.gender}> Rented Room </option> 
                     </select>  </li> </ul>
                    
           <ul> <li> Rate per hour </li> <li>

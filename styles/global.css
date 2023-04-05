@@ -32,7 +32,7 @@ img {
 .show{
     display: block;
     background: antiquewhite;
-    padding: 20px;
+    padding: 20px 5px;
     text-align: center;
 }
 
@@ -193,6 +193,7 @@ input[type="submit"]:hover {
   margin-bottom: 16px;
   position: absolute;
   background: #faead7;
+  z-index: 9;
 }
 
 .mega-menu-column {

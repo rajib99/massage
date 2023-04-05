@@ -33,10 +33,11 @@ function Model({ photoOnlyView, id, picture_url, name, service_area, price, serv
         
         }, [isActive]);
   return (
-    <div onClick={()=>toggleinfo(isActive)} className={utilStyles.model}>
-      <img className={utilStyles.modelimg} src={picture_url} alt={name} />
+    <div onClick={handleClick} className={utilStyles.model}>
+    {/* <div onClick={()=>toggleinfo(isActive)} className={utilStyles.model}> */}
+      <div className={utilStyles.modelimgCnt}><img className={utilStyles.modelimg} src={picture_url} alt={name} />  </div> 
       <div  className={photoOnlyView? 'hide': 'show'}>
-        <h2>{name}</h2>
+        <h2 className={utilStyles.modelName}>{name}</h2>
         <div className={utilStyles.location}> <Image
                 priority
                 src="/images/location.png"
@@ -48,7 +49,7 @@ function Model({ photoOnlyView, id, picture_url, name, service_area, price, serv
      <span> {service_area} </span>
     </div>
         {/* <p>{services_prices}</p> */}
-        <p><button className='button' onClick={handleClick}> Select </button></p>
+
       </div>
       
     </div>

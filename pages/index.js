@@ -249,8 +249,7 @@ export default function Home() {
             <select onChange={(e) => handleLocTypeChange(e)}> 
               <option>Location Type</option> 
               <option>inCall</option> 
-              <option>outCall</option> 
-              <option>Rent</option> 
+              <option>outCall</option>  
             </select>  
           </div>  
           <div className={utilStyles.filterLabel}> 
