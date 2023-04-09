@@ -92,6 +92,7 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  .modeSingleimg{ width: 50%; }
 
   .location {
     display: flex;
