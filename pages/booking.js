@@ -328,7 +328,7 @@ the model accepting the request. We will save your card for now in a secure serv
             </div>
             { !isTimeSelected? 
               <div className='date-selector'> 
-              <h2> Make an Appointment with {singleModel[0].name} </h2>
+              <h2> Make an Appointment with { singleModel && singleModel[0].name} </h2>
                 <div className='date-changer'>
                   <a onClick={()=>goPrevDay(isDateSelected? isDateSelected : tdate)}> Back &nbsp;&nbsp; </a>
                     <strong>  {isDateSelected? isDateSelected : tdate} </strong> 
