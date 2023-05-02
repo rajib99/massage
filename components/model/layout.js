@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../../styles/utils.module.css';
+import modelStyle from '../../styles/model.module.css';
 import Link from 'next/link';
 
 const name = 'Massage at Home';
@@ -57,13 +58,11 @@ export default function Layout({ children, home }) {
         )}
       </header>
       <main className='main-admin-layout'>
-        <section className='admin-menu'>
+        <section className={modelStyle.adminMenu}>
             <ul>
-              <Link href="/model-backend/dashboard"> Dashboard </Link>
               <Link href="/model-backend/orders"> Orders </Link>
               <Link href="/model-backend/profile"> Profile Info </Link>
               <Link href="/model-backend/availability"> Availability </Link>
-              <Link href="/model-backend/past-orders"> Past Orders </Link>
             </ul>
         </section>
         <section>

@@ -5,6 +5,7 @@ import modelCss from '../../styles/model.module.css';
 import ServicePricesUI from '../../components/servicePricesUI';
 import withAuth from "../../components/admin/withAuth";
 import Ethnicities from "../../components/data/ethnicities.js";
+import Services  from "../../components/data/services.js";
 import axios from 'axios';
 
 
@@ -39,6 +40,7 @@ const Profile = () => {
     gender: '',
     selectedAreas: Array(),
     location_type: Array(),
+    services: '',
     price: '',
     ethnicity: '',
     age: '',
@@ -87,6 +89,18 @@ const Profile = () => {
   ];
 
 
+  const [selectedServices, setSelectedServices] = useState([]);
+
+  const handleServiceChange = (event) => {
+    const { name, checked } = event.target;
+    if (checked) {
+      setSelectedServices([...selectedServices, name]);
+    } else {
+      setSelectedServices(selectedServices.filter((service) => service !== name));
+    }
+  };
+
+
   const handleAreaChange = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions).map(
       (option) => option.value
@@ -129,6 +143,8 @@ const Profile = () => {
       model.modelId = id;
       model.selectedAreas = model.selectedAreas.toString();
       model.location_type = model.location_type.toString();
+      const serviceAll = selectedServices.join(",");
+      model.services = serviceAll;
       // model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
@@ -194,6 +210,8 @@ const Profile = () => {
           // setModel({...model, phone: '89999'})
           let areaArr = result.service_area.split(",");
           let locationTypeArr = result.location_type.split(",");
+          let servicesArr = result.services.split(",");
+          setSelectedServices(servicesArr);
           setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas: areaArr, location_type: locationTypeArr,  price: result.price, ethnicity: result.ethnicity, 
             age: result.age, height: result.height, color: result.color, about: result.about, service_area: result.service_area, 
             servicePrices: result.services_prices, picture_url: result.picture_url })
@@ -235,6 +253,25 @@ const Profile = () => {
                       <option selected={'Trans' === model.gender}> Trans </option> 
                     </select>  </li> </ul>
 
+          <ul className={modelCss.servicesBack}>
+            <li>Services </li>
+            {Services.map((service) => (
+              <li key={service.id}>
+                <input
+                  type="checkbox"
+                  id={service.id}
+                  name={service.name}
+                  checked={selectedServices.includes(service.name)}
+                  onChange={handleServiceChange}
+                />
+                <label htmlFor={service.id}>{service.name}</label>
+              </li>
+            ))}
+            
+          </ul>
+
+         
+
           <ul> <li> Area you serve <br/>(press and hold ctrl/command to select multiple location) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
           {
           areas.map((group) => (
@@ -250,7 +287,7 @@ const Profile = () => {
           
           </select>  </li> </ul>
 
-          <ul> <li> Location Type </li> <li> <select name='gender' multiple value={model.location_type} onChange={handleLocationTypeChange}> 
+          <ul> <li> Call Type </li> <li> <select name='gender' multiple value={model.location_type} onChange={handleLocationTypeChange}> 
                       <option value=""> Select</option> 
                       <option selected={'inCall' === model.gender}> inCall </option> 
                       <option selected={'outCall' === model.gender}> outCall </option> 

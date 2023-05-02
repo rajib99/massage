@@ -55,7 +55,7 @@ function ModelLogin() {
       <Head>
         <title> Model Register/Login page</title>
       </Head>
-      <div className="registration-container">
+      <div className="registration-container single-login">
            
             <form onSubmit={handleRegistration}>
                 

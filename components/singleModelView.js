@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
 import utilStyles from  '../styles/utils.module.css';
+import ModelReiview from '../components/modelReview';
 
 
 function SingleModelView(model) {
@@ -17,6 +19,10 @@ function SingleModelView(model) {
         <p>Height: <strong> {model[0].height} Feet</strong></p>
         <p>Age: <strong> {model[0].age} </strong></p>
         <p>Availability this week: </p>
+        <p className='coverage'> Coverage Area: <Link href={model[0].coverage_map}> <img src={model[0].coverage_map} alt="Coverage map" /> </Link>  </p>
+
+        {/* <div className='review-container'> Sidebar for Model Review <ModelReiview /> </div> */}
+
 
       </div>
       

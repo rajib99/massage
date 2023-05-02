@@ -6,7 +6,11 @@ import DatePicker from 'react-datepicker';
 import utilStyles from '../styles/utils.module.css';
 import Models from '../components/models';
 import "react-datepicker/dist/react-datepicker.css";
-import moment  from 'moment-timezone';
+import statesAndCities from '../components/data/areas';
+import results from '../components/data/areasearch';
+import services from '../components/data/services';
+
+
 
 
 export default function Home() {
@@ -23,104 +27,115 @@ export default function Home() {
   const [time, setTime] = useState('');
   const [serviceName, setServiceName] = useState('');
   const [photoOnlyView, setPhotoOnlyView] = useState(false);
+  const [service, setService] = useState('');
+  
   
   const [age, setAge] = useState('');
   const [price, setPrice] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [location_type, setLocation_type] = useState('');
   const [area, setArea] = useState('Location');
-  const [expandedColumn, setExpandedColumn] = useState(null);
-  const [expandedSubColumn, setExpandedSubColumn] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [expandedStates, setExpandedStates] = useState([]);
+  const [expandedCities, setExpandedCities] = useState([]);
+  const [expandedBoroughs, setExpandedBoroughs] = useState([]);
+  const [showStates, setShowStates] = useState(false);
+  // const [results, setResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedResult, setSelectedResult] = useState('');
 
-  const options = [
-    {
-      title: 'New York',
-      items: [
-        'Albany',
-        'Binghamton',
-        'Buffalo',
-        'Catskills',
-        'Chautauqua',
-        'Elmira-corning',
-        'Finger lakes',
-        'Glens falls',
-        'Hudson valley',
-        'Ithaca',
-        'Long island',
-        {
-          title: 'New York City',
-          items: ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island', 'New Jersey', 'Long Island', 'Westchester', 'Fairfield'],
-        },
-        'Oneonta',
-        'Plattsburgh-adirondacks',
-        'Potsdam-canton-massena',
-        'Rochester',
-        'Syracuse',
-        'Twin tiers NY/PA',
-        'Utica-rome-oneida',
-        'Watertown',
-      ],
-    },
-    {
-      title: 'New Jersey',
-      items: ['Central NJ', 'Jersey shore', 'North jersey', 'South jersey', 'NJ suburbs of NYC (subregion of NYC site)'],
-    },
-    {
-      title: 'Connecticut',
-      items: ['Eastern CT', 'Hartford', 'New haven', 'Northwest CT', 'Fairfield county (subregion of NYC site)'],
-    },
-  ];
+ 
+  // console.log('servicessss', services);
 
-  const handleClick = (option) => {
-    setArea(option);
-    setSelectedLocation(false);
+
+
+  const handleResultClick = (result) => {
+    setSelectedResult(result);
+    setSearchTerm(result);
+  }
+
+  const toggleShowStates = () => {
+    setShowStates((prevState) => !prevState);
   };
-
-  const toggleColumn = (index) => {
-    if (expandedColumn === index) {
-      setExpandedColumn(null);
-    } else {
-      setExpandedColumn(index);
-    }
-  };
-
-  const toggleSubColumn = (index) => {
-    if (expandedSubColumn === index) {
-      setExpandedSubColumn(null);
-    } else {
-      setExpandedSubColumn(index);
-    }
-  };
-
-  const renderMenuItem = (item, index) => {
-    if (typeof item === 'string') {
-      return (
-        <li key={item}>
-          <button onClick={() => handleClick(item)}>{item}</button>
-        </li>
-      );
-    } else {
-      return (
-        <li key={item.title}>
-          <button onClick={() => toggleSubColumn(index)}>{item.title}</button>
-          {expandedSubColumn === index && (
-            <ul className="sub-menu">
-              {item.items.map((subItem) => (
-                <li key={subItem}>
-                  <button onClick={() => handleClick(subItem)}>{subItem}</button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      );
-    }
-  };
-
-
+  
+    const toggleDropdown = () => {
+      setIsOpen(!isOpen);
+    };
+  
+    const toggleStates = () => {
+      if (expandedStates.length === 0) {
+        setExpandedStates(statesAndCities.map((item) => item.state));
+      } else {
+        setExpandedStates([]);
+      }
+    };
+  
+    const toggleState = (state) => {
+      if (expandedStates.includes(state)) {
+        setExpandedStates(expandedStates.filter((s) => s !== state));
+      } else {
+        setExpandedStates([...expandedStates, state]);
+      }
+    };
+  
+    const toggleBorough = (borough) => {
+      setExpandedBoroughs((prevState) => {
+        if (prevState.includes(borough)) {
+          return prevState.filter((b) => b !== borough);
+        } else {
+          return [...prevState, borough];
+        }
+      });
+    };
+  
+    const handleNeighborhoodCheckboxChange = (state, city, borough, neighborhood) => {
+      const newItem = `${neighborhood}`;
+      if (selectedItems.includes(newItem)) {
+        setSelectedItems(selectedItems.filter((item) => item !== newItem));
+      } else {
+        setSelectedItems([...selectedItems, newItem]);
+      }
+    };
+  
+    const toggleCity = (city) => {
+      if (expandedCities.includes(city)) {
+        setExpandedCities(expandedCities.filter((c) => c !== city));
+      } else {
+        setExpandedCities([...expandedCities, city]);
+      }
+    };
+  
+    const handleStateCheckboxChange = (state) => {
+      if (selectedItems.includes(state)) {
+        setSelectedItems(selectedItems.filter((item) => item !== state));
+      } else {
+        setSelectedItems([...selectedItems, state]);
+      }
+    };
+  
+    const handleCityCheckboxChange = (state, city) => {
+      const newItem = `${city}`;
+      if (selectedItems.includes(newItem)) {
+        setSelectedItems(selectedItems.filter((item) => item !== newItem));
+      } else {
+        setSelectedItems([...selectedItems, newItem]);
+      }
+    };
+  
+    const handleBoroughCheckboxChange = (state, city, borough) => {
+      const newItem = `${borough}`;
+      if (selectedItems.includes(newItem)) {
+        setSelectedItems(selectedItems.filter((item) => item !== newItem));
+      } else {
+        setSelectedItems([...selectedItems, newItem]);
+      }
+    };
+  
   //area, gender, race, height
   function createFilterUrl(){
-    setFilteredUrl(originalUrl + '?service_area=' + area + '&gender=' + gender + '&race=' + race + '&height=' + height);
+    let sarea = selectedItems.join(", ");
+    setFilteredUrl(originalUrl + '?service_area=' + sarea + '&gender=' + gender + '&race=' + race + '&height=' + height);
     console.log('hi', filteredUrl);
   }
 
@@ -173,6 +188,9 @@ export default function Home() {
   function handlePriceChange(e){
     setPrice(e.target.value);
   }
+  function handleServiceChange(e){
+    setService(e.target.value);
+  }
 
 
   function handleTimeChange(e){
@@ -193,6 +211,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+
+    // axios.get('https://spagram.com/api/area.php')
+    //   .then(response => {
+    //     setResults(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
+
     let mdy = "";
       if(startDate !== null){
         const timestamp =  Date.parse(startDate);
@@ -206,9 +233,18 @@ export default function Home() {
         console.log('mdy', mdy);
 
       }
-      setFilteredUrl(originalUrl + '?service_area=' + area + '&location_type=' + location_type + '&gender=' + gender + '&ethnicity=' + ethnicity + '&age=' + age + '&price=' + price + '&date=' + mdy  + '&time=' + time);
-  }, [area, gender, ethnicity, location_type, age, price, startDate, time]);
 
+      let sarea = selectedItems.join(",");
+      if( selectedResult !== '' ){
+        sarea = selectedResult;
+      }else{
+
+      } 
+      setFilteredUrl(originalUrl + '?service_area=' + sarea + '&location_type=' + location_type + '&gender=' + gender + '&ethnicity=' + ethnicity + '&age=' + age + '&price=' + price + '&service=' + service + '&date=' + mdy  + '&time=' + time);
+  }, [selectedItems, selectedResult, gender, ethnicity, location_type, age, service, price, startDate, time]);
+
+  const filteredResults = results.filter(result => result.toLowerCase().includes(searchTerm.trim().toLowerCase()));
+  
   return (
     <Layout home>
       <Head>
@@ -221,35 +257,119 @@ export default function Home() {
       <section className='filter-container'> 
         <div className={utilStyles.filterLabels}> 
           <div className={utilStyles.filterLabel}> 
-            <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> {area} <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg> </div>
-          <div>
-           
-      <div className={ selectedLocation? 'mega-menu visible' : ' mega-menu hide' }>
-        {options.map((category, index) => (
-          <div key={index} className="mega-menu-column">
-            <button
-              className="mega-menu-title"
-              onClick={() => toggleColumn(index)}
-            >
-              {category.title}
-            </button>
-            {expandedColumn === index && (
-              <ul>
-                {category.items.map((item, itemIndex) =>
-                  renderMenuItem(item, itemIndex)
-                )}
-              </ul>
-            )}
-          </div>
-        ))}
-      </div>
-      </div>
+            { /* <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> {area}  </div> */ }
+              <button onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg></button>
           </div>  
+          <div className={showStates ? 'mega-menu visible' : 'mega-menu hide'}>
+      {showStates && statesAndCities.map((item) => (
+        <div className='menu-cards' key={item.state}>
+          <label>
+            <input
+              type="checkbox"
+              checked={selectedItems.includes(item.state)}
+              onChange={() => handleStateCheckboxChange(item.state)}
+            />
+            
+          </label>
+          <button onClick={() => toggleState(item.state)}>
+          {item.state} {expandedStates.includes(item.state) ? '-' : '+'}
+          </button>
+          <div className= { expandedStates.includes(item.state)? 'cities citypadding' : 'cities' }>
+          {expandedStates.includes(item.state) &&
+            item.cities.map((city) =>
+              typeof city === 'string' ? (
+                <div key={city} className='menu-cards'>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(`${city}`)}
+                      onChange={() => handleCityCheckboxChange(item.state, city)}
+                    />
+                    {city}
+                  </label>
+                </div>
+              ) : (
+                <div key={city.city} className='menu-cards'>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={selectedItems.includes(`${city.city}`)}
+                      onChange={() => handleCityCheckboxChange(item.state, city.city)}
+                    />
+                    
+                  </label>
+                  <button onClick={() => toggleCity(city.city)}>
+                  {city.city} {expandedCities.includes(city.city) ? '-' : '+'}
+                  </button>
+                  <div className= { expandedCities.includes(city.city)? 'cities borough citypadding' : 'cities borough' }>
+                  {expandedCities.includes(city.city) &&
+                    city.boroughs.map((borough) =>
+                      typeof borough === 'string' ? (
+                        <div key={borough} className='menu-cards'>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={selectedItems.includes(`${borough}`)}
+                              onChange={() => handleBoroughCheckboxChange(item.state, city.city, borough)}
+                            />
+                            {borough}
+                          </label>
+                        </div>
+                      ) : (
+                        <div key={borough.borough} className='menu-cards'>
+                          <label>
+                            <input
+                              type="checkbox"
+                              checked={selectedItems.includes(`${borough.borough}`)}
+                              onChange={() => handleBoroughCheckboxChange(item.state, city.city, borough.borough)}
+                            />
+                            
+                          </label>
+                          <button onClick={() => toggleBorough(borough.borough)}>
+                          {borough.borough} {expandedBoroughs.includes(borough.borough) ? '-' : '+'}
+                          </button>
+                          <div className= { expandedBoroughs.includes(borough.borough)? 'cities neighborhood citypadding' : 'cities neighborhood' }>
+                          {expandedBoroughs.includes(borough.borough) &&
+                            borough.neighborhoods.map((neighborhood) => (
+                              <label key={neighborhood} className='menu-cards'>
+                                <input
+                                  type="checkbox"
+                                  checked={selectedItems.includes(`${neighborhood}`)}
+                                  onChange={() => handleNeighborhoodCheckboxChange(item.state, city.city, borough.borough, neighborhood)}
+                                />
+                                {neighborhood}
+                              </label>
+                            ))}
+                            </div>
+                        </div>
+                      )
+                    )}
+                    </div>
+                </div>
+              )
+            )}
+            </div>
+        </div>
+      ))}
+
+    <input type="text" value={searchTerm} placeholder='Enter City/Neigbourhood' onChange={(e) => setSearchTerm(e.target.value.trim())} />
+          { searchTerm == ''? '' : 
+          <ul className='searchresult'>
+            {filteredResults.map((result, index)=> (
+              <li key={index} onClick={() => handleResultClick(result)}>
+                {result}
+              </li>
+            ))}
+          </ul>
+          }
+         
+
+    </div>
           <div className={utilStyles.filterLabel}> 
             <select onChange={(e) => handleLocTypeChange(e)}> 
-              <option>Location Type</option> 
-              <option>inCall</option> 
-              <option>outCall</option>  
+              <option>Out/inCall</option> 
+              <option>outCall</option> 
+              <option>inCall</option>  
             </select>  
           </div>  
           <div className={utilStyles.filterLabel}> 
@@ -261,7 +381,7 @@ export default function Home() {
             </select>  
             </div>  
           <div className={utilStyles.filterLabel}> 
-            <select onChange={(e) => handleEthnicityChange(e)} > 
+            <select className={utilStyles.ethnicity} onChange={(e) => handleEthnicityChange(e)} > 
               <option>Ethnicity</option> 
               <option>African</option>
               <option>Arab</option>
@@ -289,6 +409,17 @@ export default function Home() {
               <option> 30-40 </option> 
               <option> 40-50 </option> 
               <option> 60+ </option> 
+            </select> 
+          </div> 
+          <div className={utilStyles.filterLabel}> 
+            <select className={utilStyles.stype} onChange={(e) => handleServiceChange(e)} > 
+              <option> Service Type </option> 
+              {
+                services.map((service) => (
+                  <option> {service.name} </option>
+
+                ))
+              }
             </select> 
           </div> 
           <div className={utilStyles.filterLabel}> 

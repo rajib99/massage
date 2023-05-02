@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import utilStyles from  '../styles/utils.module.css';
 import Layout, { siteTitle } from '../components/layout';
+import ErrorMessage from '../components/errorMessage';
 import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
@@ -39,8 +40,10 @@ function CustomerLogin() {
       if(response.data.success == '1') {
             const { token } = response.data;
             localStorage.setItem("customertoken", token);
-            Router.push("http://localhost:3005/customer-backend");
+            Router.push("/");
             // window.location.href = location.state ? location.state.from.pathname : '/';
+      }else{
+        setError(true);
       }
 
   
@@ -55,7 +58,7 @@ function CustomerLogin() {
       <Head>
         <title> Customer Login page</title>
       </Head>
-      <div className="registration-container">
+      <div className="registration-container single-login">
            
             <form onSubmit={handleRegistration}>
                 
@@ -71,6 +74,8 @@ function CustomerLogin() {
                 <button className='button' type="submit">Submit</button>
                 <p className='message'> {message}</p>
             </form>
+            { error? <ErrorMessage message = " Wrong User/pass. Please try again or contact admin " /> : '' } 
+            <p> Book a model to register.  </p>
 
  
         </div>

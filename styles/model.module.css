@@ -10,3 +10,33 @@
 .availBox input{ width: 200px;}
 .timeBox2{ margin-left: 20px; margin-right: 20px; }
 .save{ margin-top: 30px; padding: 8px 20px; }
+
+
+
+.table {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .row {
+    display: table-row;
+  }
+  
+  .header {
+    font-weight: bold;
+  }
+  
+  .cell {
+    display: table-cell;
+    padding: 8px;
+    border: 1px solid black;
+  }
+  
+  .adminMenu{ background-color: #4b0176; margin-right: 40px; min-width: 170px; }
+  .adminMenu ul{ padding-left: 30px; padding-right: 30px; }
+  .adminMenu a{ color: #ffffff; display: block; margin-bottom: 15px; }
+  .servicesBack{ display: block; }
+  .servicesBack li{ margin: 3px 10px; background-color: rgb(250 242 255); padding: 2px 10px; }
+  .servicesBack li input{ display: inline-block; }
+  .servicesBack li label{ display: inline-block; font-weight: 400;  }

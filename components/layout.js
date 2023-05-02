@@ -3,11 +3,23 @@ import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 const name = 'Massage at Home';
 export const siteTitle = 'Muew Muew site title';
 
 export default function Layout({ children, home }) {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+  useEffect(() => {
+    const customerId = localStorage.getItem("customertoken");
+    if(customerId){
+      setIsLoggedIn(true);
+    }
+   
+  }, []);
   return (
     <div className={styles.container}>
       <Head>
@@ -27,43 +39,22 @@ export default function Layout({ children, home }) {
       </Head>
       <header className={styles.header}>
         {home ? (
-          <>
-          <Link href="https://www.tristatemassage.com/">
-            <Image
-                priority
-                src="/images/logo.png"
-                className={utilStyles.borderCircle}
-                height={81}
-                width={300}
-                alt=""
-              />
-          </Link>
-            
+          <>            
             <ul className='menu'>
-                <li> <Link href='https://www.tristatemassage.com/'> Home </Link> </li>
-                
-                <li> <Link href='/customer-login'> Customer Login/Register </Link> </li>
+                <li> <Link href='/'> Models </Link> </li>
                 <li> <Link href='/model-registration'> Model Login/Register </Link> </li>
-                <li> <Link href='https://www.tristatemassage.com/contact'> Contact  </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com/contact'> Help  </Link> </li>
+                <li> {isLoggedIn? <div> <Link href='/customer-backend'> Settings </Link> | <Link href='/logout'>  Logout </Link> </div>  : <Link href='/customer-login'> Customer Zone </Link> }  </li>
             </ul>
           </>
         ) : (
           <>
-            <Link href="https://www.tristatemassage.com/">
-              <Image
-                priority
-                src="/images/logo.png"
-                className={utilStyles.borderCircle}
-                height={81}
-                width={300}
-                alt=""
-              />
-            </Link>
             <ul className='menu'>
-                <li> <Link href='https://www.tristatemassage.com/'> Home </Link> </li>
-                <li> <Link href='/customer-login'> Customer Login/Register </Link> </li>
+            <li> <Link href='/'> Models </Link> </li>
                 <li> <Link href='/model-registration'> Model Login/Register </Link> </li>
-                <li> <Link href='https://www.tristatemassage.com//contact'> Contact  </Link> </li>
+                <li> <Link href='https://www.tristatemassage.com/contact'> Help  </Link> </li>
+                <li> {isLoggedIn? <div> <Link href='/customer-backend'> Settings </Link> | <Link href='/logout'>  Logout </Link> </div>  : <Link href='/customer-login'> Customer Zone </Link> }  </li>
+
             </ul>
             <h2 className={utilStyles.headingLg}>
               <Link href="/" className={utilStyles.colorInherit}>
