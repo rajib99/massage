@@ -65,8 +65,8 @@ input{ display: block; }
 
 
 .registration-container {
-  width: 600px;
-  margin: 50px 0;
+  width: 910px;
+  margin: 50px auto;
   background-color: #fff;
   padding: 30px;
   border-radius: 10px;

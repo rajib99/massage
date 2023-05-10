@@ -58,6 +58,14 @@ function Booking() {
     };
 
 
+    const callDefaultFunctions = () => {
+      const loc_type = singleModel[0].location_type;
+      const locArr = loc_type.split(',');
+      if(locArr.length < 2){
+        calltypeSelector(locArr[0]);
+      }
+    }
+
     const getcardEndingwith = () => {
       // let customerId = localStorage.getItem('customerid');
       // try {
@@ -115,7 +123,7 @@ function Booking() {
       const locArr = loc_type.split(',');
       return(
         <div className='calltypeCnt'>
-            <div className='calltypes'> <span> inCAll/outCall :  </span> { locArr.length < 2 ? <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> locArr[0] </button> : <div> <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> <button onClick={()=> calltypeSelector(locArr[1]) } className={outCallSelected?'selected': ''}> {locArr[1]} </button> </div> }  </div> 
+            <div className='calltypes'> <span> inCall/outCall :  </span> { locArr.length < 2 ? <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> : <div> <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> <button onClick={()=> calltypeSelector(locArr[1]) } className={outCallSelected?'selected': ''}> {locArr[1]} </button> </div> }  </div> 
           <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' } </div>
         </div>
       )
@@ -407,6 +415,8 @@ function Booking() {
         try {
           const response = await axios.get(singleApiUrl);
           setSingleModel(response.data);
+          // console.log('sdd', response.data[0].location_type);
+
           const urlParams = new URLSearchParams(singleApiUrl);
           // setIsDateSelected(urlParams.get('date'));
           // setIsDateSelected('4/8/2023');
@@ -466,7 +476,8 @@ the model accepting the request. We will save your card for now in a secure serv
 
                 {/* {singleModel && console.log('smodel', ...singleModel) } */}
 
-                {singleModel && <SingleModelView  {...singleModel} /> }        
+                {singleModel && <SingleModelView  {...singleModel} /> }    
+                {/* { singleModel && callDefaultFunctions() }     */}
             </div>
             { !isTimeSelected? 
               <div className='date-selector'> 
