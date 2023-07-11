@@ -9,14 +9,17 @@ import axios from 'axios';
 import SingleModelView from '../components/singleModelView';
 
 import Loading from '../components/Loading';
+import SquareForm from '../components/squareform';
 
+
+//  <SquareForm /> 
 
 
 
 
 function Booking() {
 
-    const [formData, setFormData] = useState({name: '', email: '', phone: '', address: '', cardname: '', card: '', expiration: '', cvv: '', password: '', selected_model: ''});  
+    const [formData, setFormData] = useState({name: '', email: '', phone: '', address: '', city: '', zip: '', password: '', selected_model: ''});  
     const [orderData, setOrderData] = useState({customer_id: '', model_id: '', service_address: '', service_type: '', service_time: '', amount_received: '', cardid:'', status:''});  
 
     
@@ -38,6 +41,8 @@ function Booking() {
     const [inCallSelected, setInCallSelected] = useState(false);
     const [outCallSelected, setOutCallSelected] = useState(false);
     const [outCallLocation, setOutCallLocation] = useState(false);
+    const [showSaveCard, setShowSaveCard] = useState(false);
+    const [showSuccessPage, setShowSuccessPage] = useState(false);
     
     
     
@@ -65,6 +70,14 @@ function Booking() {
         calltypeSelector(locArr[0]);
       }
     }
+
+
+    // const showSingleModelAndinCall = () => {
+    //    calltypeSelector("inCall");
+    //   return(
+    //     <SingleModelView  {...singleModel}  />
+    //   )
+    // }
 
     const getcardEndingwith = () => {
       // let customerId = localStorage.getItem('customerid');
@@ -99,7 +112,9 @@ function Booking() {
     // const product = urlParams.get('id')
     //   console.log('modiel id', id);
 
-    const calltypeSelector = (ctype) => {
+    const calltypeSelector = (e) => {
+      console.log('calltype selector func called');
+      let ctype = e.target.value;
       setSelectedCallType(ctype);
       if(ctype == 'inCall'){
         setInCallSelected(true);
@@ -118,13 +133,28 @@ function Booking() {
       setOrderData({...orderData, service_address: e.target.value, service_type: 'outCall' });
     }
 
+    // this is button version, but got a problem showing address without clicking the incall button when inCall is the only option
+    // const location_selector = () => {
+    //   const loc_type = singleModel[0].location_type;
+    //   const locArr = loc_type.split(',');
+    //   return(
+    //     <div className='calltypeCnt'>
+    //         <div className='calltypes'> <span> inCall/outCall :  </span> { locArr.length < 2 ? <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> : <div> <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> <button onClick={()=> calltypeSelector(locArr[1]) } className={outCallSelected?'selected': ''}> {locArr[1]} </button> </div> }  </div> 
+    //       <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' } </div>
+    //       <div>  </div>
+    //     </div>
+    //   )
+    // }
+
+
     const location_selector = () => {
       const loc_type = singleModel[0].location_type;
       const locArr = loc_type.split(',');
       return(
         <div className='calltypeCnt'>
-            <div className='calltypes'> <span> inCall/outCall :  </span> { locArr.length < 2 ? <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> : <div> <button onClick={()=> calltypeSelector(locArr[0]) } className={inCallSelected?'selected': ''}> {locArr[0]} </button> <button onClick={()=> calltypeSelector(locArr[1]) } className={outCallSelected?'selected': ''}> {locArr[1]} </button> </div> }  </div> 
+            <div className='calltypes'> { locArr.length < 2 ? <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option></select> : <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option><option>{locArr[1]}</option></select> }  </div> 
           <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' } </div>
+          <div>  </div>
         </div>
       )
     }
@@ -164,8 +194,10 @@ function Booking() {
         console.log('order retured', response.data);
         if(response.data.success == '1') {
               const { token } = response.data;
-              setSuccMessage('Order confirmed! Please check your email for details');
-             // localStorage.setItem("customertoken", token);
+              
+              // setSuccMessage('Order confirmed! Please check your email for details');
+             localStorage.setItem("customertoken", token);
+             window.location.href = "/cardsaved";
               
               // window.location.href = location.state ? location.state.from.pathname : '/';
         }
@@ -176,6 +208,17 @@ function Booking() {
       }
     };
 
+
+    const cardForm = () => {
+      return(
+        <div className='registration-container'>
+          <h3> Enter your card details </h3>
+          <p> We will save your card in a Square secure server and charge you after the model accept your request </p>
+          <SquareForm customer_id={orderData.customer_id} model_id={orderData.model_id} service_address={orderData.service_address} service_type={orderData.service_type} service_time={orderData.service_time}  price={orderData.amount_received}  showSuccessPage={showSuccessPage} />
+        </div>
+      );
+      
+    };
 
     const handleLogin = async (e) => {
       e.preventDefault();
@@ -209,17 +252,24 @@ function Booking() {
       setSuccMessage("");
       try {
         formData.selected_model = modelID;
+
         const response = await axios.post('https://spagram.com/api/register-customer.php', formData);
         console.log('client data', formData);
         console.log('rest', response.data);
         if(response.data.success == '1') {
-              const { usertoken } = response.data;
-              localStorage.setItem("usertoken", usertoken);
+              const { customerdbid, cardsaved } = response.data;
+              localStorage.setItem("customerdbid", customerdbid);
+              localStorage.setItem("cardsaved", cardsaved);
+              localStorage.setItem("price", orderData.amount_received);
+
+              setOrderData({...orderData, customer_id: customerdbid });
+              
               setSuccMessage("Your registration is successful");
-              setFormData({name: '', email: '', phone: '', address: '', cardname: '', card: '', expiration: '', cvv: '', password: ''});
+              setShowSaveCard(true);
+              setFormData({name: '', email: '', phone: '', address: '', city: '', zip: '', password: ''});
               // router.push("http://localhost:3005/customer-success");
               // window.location.href = location.state ? location.state.from.pathname : '/';
-              console.log('shos', usertoken);
+              console.log('insertedcustomer id', customerdbid);
               setLoading(false);
         }else{
           setLoading(false);
@@ -382,17 +432,16 @@ function Booking() {
           <label for="phone">Phone: (Don't add country code +1, don't add white space ) </label>
           <input type="tel" id="phone" onChange={handleChange} name="phone" value={formData.phone}/>
 
-          <label for="address">Home Address:</label>
+          <label for="address">Address:</label>
           <textarea id="address" onChange={handleChange} name="address" value={formData.address}></textarea>
+          <label for="city">City:</label>
+          <input type="text" id="city" onChange={handleChange} name="city" value={formData.city} />
+          <label for="zip">Zip:</label>
+          <input type="text" id="zip" onChange={handleChange} name="zip" value={formData.zip} />
 
-          <label for="card">Name on the card:</label>
-          <input type="text" id="cardname" onChange={handleChange} name="cardname" value={formData.cardname} />
-          <label for="card">Card info:</label>
-          <input type="text" id="card" onChange={handleChange} name="card" placeholder='Card Number' value={formData.card} />
-          <div className='col2 cardinfo'> <input type="text" onChange={handleChange} id="expiration" name="expiration" placeholder=" Expiration date " value={formData.expiration}  /> <input type="text" id="cvv" name="cvv" placeholder="Security Code "  onChange={handleChange} value={formData.cvv}   /> </div>
           <label for="name">Create Password:</label>
           <input type="password" id="password" onChange={handleChange} name="password"  value={formData.password}  />
-          <input type="hidden" id="selected_model" name="selected_model" value={modelID}/>
+          <input type="hidden" id="selected_model" name="selected_model" value={modelID} />
               <button className='button' type="submit">Submit</button>
               {loading && <Loading/>}
               <h2> {succMessage} </h2>  
@@ -415,7 +464,11 @@ function Booking() {
         try {
           const response = await axios.get(singleApiUrl);
           setSingleModel(response.data);
+          // singleModel && calltypeSelector("inCall");
           // console.log('sdd', response.data[0].location_type);
+          // const timeout = setTimeout(() => {
+          //    calltypeSelector("inCall");
+          // }, 10000)
 
           const urlParams = new URLSearchParams(singleApiUrl);
           // setIsDateSelected(urlParams.get('date'));
@@ -461,12 +514,11 @@ function Booking() {
       <Head>
         <title> Book a model </title>
       </Head>
-      <div className='messageBox'> $10% <span className='price'> ${}</span> will be deducted from your card after the 
-the model accepting the request. We will save your card for now in a secure server but won't charge until the model accept the request  </div>
       <div className="">
+      {/* <SquareForm /> */}
        
             <div> 
-                <h1> Your selected model: {console.log('orderdat', orderData)} </h1>
+                <h1> Your selected model:  </h1>
 
 
                 {loading && <div>Loading...</div>}
@@ -476,7 +528,8 @@ the model accepting the request. We will save your card for now in a secure serv
 
                 {/* {singleModel && console.log('smodel', ...singleModel) } */}
 
-                {singleModel && <SingleModelView  {...singleModel} /> }    
+                {singleModel && <SingleModelView  {...singleModel}  />  }    
+                {/* {singleModel && showSingleModelAndinCall()  }     */}
                 {/* { singleModel && callDefaultFunctions() }     */}
             </div>
             { !isTimeSelected? 
@@ -509,6 +562,7 @@ the model accepting the request. We will save your card for now in a secure serv
                           <form onSubmit={handleLogin}>
                               
                               <div>
+                                <h2> Login to Book an Appointment </h2>
                                   <label>Email:</label>
                                   <input type="email" id="email" name="email" onChange={handleLoginFieldChange} required/>
                               </div>
@@ -526,7 +580,8 @@ the model accepting the request. We will save your card for now in a secure serv
                           <div className='button' onClick={()=>setLoginform(false)}> Not a member? Click to register </div> 
                        </div>
                 : 
-                   registraionForm() 
+                   
+                  showSaveCard? cardForm() : registraionForm()  
                 }
                   
               </div>   
@@ -541,7 +596,7 @@ the model accepting the request. We will save your card for now in a secure serv
                 <a onClick={() => setShowCardForm(true)}> Use a new debit/credit card </a>
                 {showCardForm? 
                   <div className='cardform'> 
-                    <p> cards form</p>
+                    <SquareForm />
                   </div> 
                 : '' 
                 }

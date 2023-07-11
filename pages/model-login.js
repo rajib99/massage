@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import utilStyles from  '../styles/utils.module.css';
+// import globalcss from  '../styles/globals.css';
 import Layout, { siteTitle } from '../components/layout';
 import Link from 'next/link';
 import axios from 'axios';
@@ -38,11 +39,15 @@ function ModelLogin() {
       console.log('rest', response.data);
       if(response.data.success == '1') {
             const { token } = response.data;
+            const { success } = response.data;
             localStorage.setItem("token", token);
-            Router.push("http://localhost:3005/model-backend");
+            Router.push("http://localhost:3005/model-backend/orders");
+            
+            
             // window.location.href = location.state ? location.state.from.pathname : '/';
+      }else{
+        setError('Email/Password do not match. Please try again!');
       }
-
   
     } catch (error) {
       console.error(error);
@@ -71,8 +76,9 @@ function ModelLogin() {
                 <button className='button' type="submit">Submit</button>
                 <p className='message'> {message}</p>
             </form>
+           <p> {error? error: ''} </p>
 
-            <Link href='/model-registration'> Create a new Model Account </Link> 
+            <Link href='/model-registration'> Not a member? Click to create a new model account </Link> 
  
         </div>
 

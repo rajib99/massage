@@ -19,7 +19,10 @@ function SingleModelView(model) {
         <p>Height: <strong> {model[0].height} Feet</strong></p>
         <p>Age: <strong> {model[0].age} </strong></p>
         <p>Availability this week: </p>
-        <p className='coverage'> Coverage Area: <Link href={model[0].coverage_map}> <img src={model[0].coverage_map} alt="Coverage map" /> </Link>  </p>
+        {model[0].coverage_map.trim().length !== 0 ? 
+        <p className='coverage'> Coverage Area: <Link  hresf={model[0].coverage_map} href={model[0].coverage_map}> <img src={model[0].coverage_map} alt="Coverage map" /> </Link>  </p>
+
+         : '' }
 
         {/* <div className='review-container'> Sidebar for Model Review <ModelReiview /> </div> */}
 

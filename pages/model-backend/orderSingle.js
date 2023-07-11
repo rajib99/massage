@@ -16,7 +16,7 @@ function OrderSingle({ changeOrderStatus, order }) {
 
     const changestats = async (status) => {
         try {
-            const orderUpdate = {id: order.id, order_status: status};
+            const orderUpdate = {id: order.id, order_status: status, customer_id: order.customer_id};
             const response = await axios.post('https://spagram.com/api/update-order.php', orderUpdate);
             console.log('s response', response.data );
             changeOrderStatus(status);
@@ -31,14 +31,14 @@ function OrderSingle({ changeOrderStatus, order }) {
 
   // console.log('sssss', order);
   return (
-    <div className={modelStyle.row}>
+    <div>
       {order?
         <div>
           <div className={modelStyle.cell}> {order.date_of_creation} </div>
           <div className={modelStyle.cell}> {order.service_address} </div>
           <div className={modelStyle.cell}> {order.service_type} </div>
           <div className={modelStyle.cell}> {order.service_time} </div>
-          <div className={modelStyle.cell}> {order.order_status} <br/> {order.order_status == "Paid"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </div>
+          <div className={modelStyle.cell}> {order.order_status} <br/> {order.order_status == "Initiated"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </div>
         </div> : ''}
        
     </div>

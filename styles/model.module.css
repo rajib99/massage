@@ -28,9 +28,10 @@
   }
   
   .cell {
-    display: table-cell;
+    float: left;
     padding: 8px;
     border: 1px solid black;
+    width: 150px;
   }
   
   .adminMenu{ background-color: #4b0176; margin-right: 40px; min-width: 170px; }

@@ -69,7 +69,7 @@ const Orders = () => {
       <div className='orders'> 
 
       <div className={modelStyle.table}>
-      <div className={`${modelStyle.row} ${modelStyle.header}`} >
+      <div className={`$ ${modelStyle.header}`} >
         <div className={modelStyle.cell}>Request Time </div>
         <div className={modelStyle.cell}>Address</div>
         <div className={modelStyle.cell}>Call Type</div>

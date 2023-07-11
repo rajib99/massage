@@ -9,6 +9,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import statesAndCities from '../components/data/areas';
 import results from '../components/data/areasearch';
 import services from '../components/data/services';
+import SquareForm from '../components/squareform';
+
+
+{/* <SquareForm /> */}
 
 
 
@@ -210,7 +214,11 @@ export default function Home() {
   
   }
 
+  
+
   useEffect(() => {
+
+
 
     // axios.get('https://spagram.com/api/area.php')
     //   .then(response => {
@@ -219,7 +227,7 @@ export default function Home() {
     //   .catch(error => {
     //     console.error(error);
     //   });
-
+    // initSaveCard();
     let mdy = "";
       if(startDate !== null){
         const timestamp =  Date.parse(startDate);
@@ -250,6 +258,8 @@ export default function Home() {
       <Head>
         <title>{siteTitle}</title>
       </Head>
+
+
       <section className={utilStyles.headingMd}>
         Search for massage anywhere in New York, New Jersey, and Connecticut.
       </section>

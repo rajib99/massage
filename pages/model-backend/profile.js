@@ -25,6 +25,7 @@ const Profile = () => {
   // [{"id": "1", "name":"Swedish massage","Price":"44"}, {"id": "2", "name":"Deep massage","Price":"144"}]
 
   // const [selectedAreas, setSelectedAreas] = useState([]);
+  const [initialMSg, setInitialMSg] = useState('');
   const [servPri, setServPri] = useState(null);
   const [inputs, setInputs] = useState([]);
   const [file, setFile] = useState(null);
@@ -40,6 +41,7 @@ const Profile = () => {
     gender: '',
     selectedAreas: Array(),
     location_type: Array(),
+    incall_location: '',
     services: '',
     price: '',
     ethnicity: '',
@@ -198,6 +200,12 @@ const Profile = () => {
 
 
   useEffect(() => {
+
+    const params = new URLSearchParams(window.location.search);
+    const source = params.get('source'); 
+    console.log('from', source);
+    source? setInitialMSg('Thanks for the Registration. Please finish your profile settings.') : '';
+
     const modelid = localStorage.getItem("token");
     setId(modelid);
     let url = "https://spagram.com/api/single-model.php?id=" + modelid;
@@ -212,7 +220,7 @@ const Profile = () => {
           let locationTypeArr = result.location_type.split(",");
           let servicesArr = result.services.split(",");
           setSelectedServices(servicesArr);
-          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas: areaArr, location_type: locationTypeArr,  price: result.price, ethnicity: result.ethnicity, 
+          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
             age: result.age, height: result.height, color: result.color, about: result.about, service_area: result.service_area, 
             servicePrices: result.services_prices, picture_url: result.picture_url })
 
@@ -238,6 +246,7 @@ const Profile = () => {
         <title>{siteTitle}</title>
       </Head>
       
+      <h2>  {initialMSg} </h2>
       <h2>  Personal info  </h2>
 
       <section className={modelCss.profileEdit}>
@@ -292,6 +301,11 @@ const Profile = () => {
                       <option selected={'inCall' === model.gender}> inCall </option> 
                       <option selected={'outCall' === model.gender}> outCall </option> 
                     </select>  </li> </ul>
+
+          <ul> <li> inCall Location </li> <li>
+            <input type="text" onChange={handleInputChange} name="incall_location" value={model.incall_location}></input>  
+                </li> 
+          </ul>
                    
           <ul> <li> Rate per hour </li> <li>
                 <input type="text" onChange={handleInputChange} name="price" value={model.price}></input>  
