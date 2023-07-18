@@ -6,3 +6,9 @@ for (let key in myModule) {
    
   }
 }
+
+
+const fns = () => {
+}
+
+export default fns;
