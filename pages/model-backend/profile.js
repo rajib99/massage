@@ -151,6 +151,7 @@ const Profile = () => {
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
       const response = await axios.post('https://spagram.com/api/update-model.php', model);
+      console.log('model update', response.data);
       setMessage('Update successful')
       model.selectedAreas = model.selectedAreas.split(",");
       model.location_type = model.location_type.split(",");

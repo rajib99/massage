@@ -95,7 +95,7 @@ function Booking() {
       //   console.error(error);
       // }
       
-      return 2323;
+      return ' ';
     };
 
     const router = useRouter();
@@ -189,7 +189,7 @@ function Booking() {
         // Done 
 
        
-
+        console.log('orderdata before confirmorder ', orderData);
         const response = await axios.post('https://spagram.com/api/confirmorder.php', orderData);
         console.log('order retured', response.data);
         if(response.data.success == '1') {
@@ -197,7 +197,7 @@ function Booking() {
               
               // setSuccMessage('Order confirmed! Please check your email for details');
              localStorage.setItem("customertoken", token);
-             window.location.href = "/cardsaved";
+            //  window.location.href = "/cardsaved";
               
               // window.location.href = location.state ? location.state.from.pathname : '/';
         }
@@ -227,6 +227,7 @@ function Booking() {
         console.log('rest', response.data);
         if(response.data.success == '1') {
               const { token } = response.data;
+              console.log('retured after login', response.data)
               localStorage.setItem("customertoken", token);
               setIsLoggedIn(true);
               setOrderData({
@@ -592,7 +593,7 @@ function Booking() {
                 <p> Price: ${ get10percent(singleModel[0].price) } (10% of ${singleModel[0].price} ) </p>
                 </div>
 
-                <p> Use Saved card ending with ... {getcardEndingwith()}  </p>
+                <p> Use the Saved card {getcardEndingwith()}  </p>
                 <a onClick={() => setShowCardForm(true)}> Use a new debit/credit card </a>
                 {showCardForm? 
                   <div className='cardform'> 
