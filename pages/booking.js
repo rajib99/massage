@@ -197,7 +197,7 @@ function Booking() {
               
               // setSuccMessage('Order confirmed! Please check your email for details');
              localStorage.setItem("customertoken", token);
-            //  window.location.href = "/cardsaved";
+             window.location.href = "/cardsaved";
               
               // window.location.href = location.state ? location.state.from.pathname : '/';
         }
@@ -515,7 +515,7 @@ function Booking() {
       <Head>
         <title> Book a model </title>
       </Head>
-      <div className="">
+      <div className="bookingpage">
       {/* <SquareForm /> */}
        
             <div> 

@@ -69,13 +69,24 @@ const Orders = () => {
       <div className='orders'> 
 
       <div className={modelStyle.table}>
-      <div className={`$ ${modelStyle.header}`} >
+      <table className='table'>
+        <thead>
+          <tr>
+            <th> Request Time </th>
+            <th> Address </th>
+            <th> Call Type </th>
+            <th> Service Time </th>
+            <th> Status </th>
+
+          </tr>
+        </thead>
+      {/* <div className={`$ ${modelStyle.header}`} >
         <div className={modelStyle.cell}>Request Time </div>
         <div className={modelStyle.cell}>Address</div>
         <div className={modelStyle.cell}>Call Type</div>
         <div className={modelStyle.cell}> Service Time </div>
         <div className={modelStyle.cell}> Status </div>
-      </div>
+      </div> */}
       {/* {data.map((item) => (
         <div className="row" key={item.id}>
           <div className="cell">{item.name}</div>
@@ -83,11 +94,13 @@ const Orders = () => {
           <div className="cell">{item.location}</div>
         </div>
       ))} */}
+      <tbody> 
        {orderData && orderData.map((order, index) => (
         // <OrderSingle key={index} {...order} changeOrderStatus={changeOrderStatus} />
         <OrderSingle changeOrderStatus={changeOrderStatus} key={index} order={order} />
       ))}
-      
+      </tbody>
+      </table>
     </div>
     <strong> {noOrder? "You don't have any pending service request" : ''} </strong> 
      

@@ -7,6 +7,7 @@ body {
   line-height: 1.6;
   font-size: 18px;
 }
+body{ background: rgb(249,69,179); background: radial-gradient(circle, rgba(249,69,179,1) 0%, rgba(217,0,133,0.9346332282913166) 35%, rgba(217,0,133,0.07188813025210083) 100%); }
 
 * {
   box-sizing: border-box;
@@ -31,10 +32,11 @@ img {
 }
 .show{
     display: block;
-    background: antiquewhite;
+    background: #d90085;
     padding: 20px 5px;
     text-align: center;
 }
+.logomain{width: 300px;}
 
 .button {
   cursor: pointer;
@@ -48,7 +50,8 @@ img {
   font-size: 16px;
 }
 .col2{ display: flex; padding: 20px; }
-.col2 div{ padding: 20px 40px; }
+.col2 div{ padding: 20px }
+.col2 .modelDesc { padding-right: 0; }
 .cardinfo {padding: 0 !important; margin-bottom: 20px; }
 .cardinfo input { margin-bottom: 0 !important; margin-right: 10px; }
 label{display: block;}
@@ -56,6 +59,8 @@ input{ display: block; }
 
 .menu{ display: flex; }
 .menu li{ padding: 0 30px; font-size: 1rem; list-style: none;}
+
+
 .menu li a{ font-size: 1rem;}
 .mt0{margin-top: 0 !important; }
 .pt0{padding-top: 0 !important; }
@@ -63,11 +68,19 @@ input{ display: block; }
 
 
 
+.order-box{
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+  background: #f6b1d6;
+}
+
+.success{text-align: center;}
 
 .registration-container {
-  width: 910px;
   margin: 50px auto;
-  background-color: #fff;
+  background-color: #f6b1d6;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 10px #ccc;
@@ -76,7 +89,7 @@ input{ display: block; }
 .date-selector{
   width: 600px;
   margin: 50px 0;
-  background-color: #fff;
+  background-color: #f6b1d6;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 10px #ccc;
@@ -282,6 +295,17 @@ input[type="submit"]:hover {
 .menu-cards3{ clear: both; display: block;  }
 .menu-cards4{ clear: both; display: block;  } */
 
+.filter-container div.loc{ background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 14px; color: #000; cursor: pointer; }
+.filter-container div.loc svg{ position: relative; top:3px; fill: #737373; }
+.modelSingel{ max-height: 600px; overflow: hidden; width: 400px; padding: 0 !important; }
+  
+.bookingpage{    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  padding: 0 40px;
+}
+  
+
 .filter-container button{ background: transparent; border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 16px; }
 .menu-cards{ clear: both;  }
 .menu-cards label{ float: left; position: relative; font-weight: 300; font-size: 16px;  }
@@ -326,3 +350,73 @@ input[type="submit"]:hover {
 }
 .calltypes{  display: flex; justify-content: center; }
 .calltypeCnt button{ margin-bottom: 20px; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; margin-left: 10px; }
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f6b1d6;
+}
+
+.footer{ margin: 20px; text-align: center;}
+
+
+@media only screen and (max-width: 1000px) {
+  .filterLabels{ 
+    display: inline-block;
+  }
+  .container{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .menu{
+    display: inline-block;
+    width: 100%;
+  }
+  .menu li{ float: left; }
+  .filterLabel{ display: inline-block; }
+  .react-datepicker-wrapper input{top: 0 }
+
+  .bookingpage{display: block; padding: 0;}
+  .bookingpage .col2{ display: block; padding: 0; }
+  .bookingpage h1{ font-size: 25px; }
+  .modelSingel{ width: 300px;}
+  .col2 .modelDesc{padding: 0; margin-top: 20px !important;}
+  .date-selector{width: 100%; padding: 5px; }
+  .timeCardCnt{display: block; width: 100%; padding: 0; }
+  .timeCardCnt div{display: inline-block; margin: 2px; }
+
+  .main-admin-layout{ display: block; }
+
+  
+}
+@media only screen and (max-width: 400px) {
+  .menu li a {
+    font-size: 16px;
+  }
+
+  .logomain {
+    width: 200px;
+  }
+  .react-datepicker-wrapper input {
+    width: 140px;
+  }
+  .viewbyicon img{
+    width: 20px;
+    height: auto;
+  }
+}
+
+
+
+

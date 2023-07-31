@@ -33,6 +33,8 @@ const Availability = () => {
   };
 
 
+  const availHeaderClass = `${modelCss.availList} ${modelCss.availList_header}`;
+
   function formatDateString(inputDateString, format) {
     const date = new Date(inputDateString);
   
@@ -243,7 +245,7 @@ console.log('Timestamp in EST timezone:', timestamp);
       
       <h2> My Availability </h2>
       <div> 
-      <ul className={modelCss.availList}> <li className={modelCss.timeList}> Start </li> <li className={modelCss.timeList}>End</li> </ul> 
+      <ul className={availHeaderClass}> <li className={modelCss.timeList}> Start </li> <li className={modelCss.timeList}>End</li> </ul> 
         {
           availArr && availArr.map( avail => (
             <ul className={modelCss.availList} key={avail.id}> 

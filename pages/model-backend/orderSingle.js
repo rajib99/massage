@@ -31,17 +31,15 @@ function OrderSingle({ changeOrderStatus, order }) {
 
   // console.log('sssss', order);
   return (
-    <div>
-      {order?
-        <div>
-          <div className={modelStyle.cell}> {order.date_of_creation} </div>
-          <div className={modelStyle.cell}> {order.service_address} </div>
-          <div className={modelStyle.cell}> {order.service_type} </div>
-          <div className={modelStyle.cell}> {order.service_time} </div>
-          <div className={modelStyle.cell}> {order.order_status} <br/> {order.order_status == "Initiated"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </div>
-        </div> : ''}
-       
-    </div>
+    <tr>
+      
+          <td> {order.date_of_creation} </td>
+          <td> {order.service_address} </td>
+          <td> {order.service_type} </td>
+          <td> {order.service_time} </td>
+          {/* <td> {order.order_status} <br/> {order.order_status == "Initiated"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </td>  */}
+          <td> {order.order_status}  </td> 
+    </tr>
   );
 }
 

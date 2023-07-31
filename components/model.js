@@ -46,7 +46,7 @@ function Model({ photoOnlyView, date, time, id, picture_url, name, service_area,
                 width={20}
                 alt=""
               /> 
-     <span> {service_area} </span>
+     <span> {service_area.replace(/,/g, ', ')} </span>
     </div>
         {/* <p>{services_prices}</p> */}
 

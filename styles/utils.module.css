@@ -59,6 +59,10 @@
     -ms-flex-item-align: auto;
     margin-bottom: 10px;
   }
+
+
+ 
+
   .filterLabel{
     margin: auto 5px;
     padding: 5px;
@@ -73,6 +77,7 @@
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 20px;
+    justify-content: center;
   }
 
   .model{
@@ -89,7 +94,9 @@
     left: 50%;
     transform: translateX(-50%);
   }
-  .modeSingleimg{ width: 50%; height: fit-content; }
+  .modeSingleimg{  max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; width: 100%;}
 
   .location {
     display: flex;
@@ -105,3 +112,28 @@
 .modelName{ font-size: 20px; margin-bottom: 5px; margin-top: 0; }
 .stype{ max-width: 120px; }
 .ethnicity{ max-width: 100px;}
+
+
+@media only screen and (max-width: 1000px) {
+  .filterLabels{ 
+    display: inline-block;
+  }
+  
+  .filterLabel{ display: inline-block; margin: 0; }
+  .model{ width: 165px; margin-left: 0; margin-right: 10px; }
+  
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 800px){
+  .model{ width: 240px; }
+  
+}
+
+@media only screen and (max-width: 400px) {
+  .headingMd{ font-size: 16px; }
+  .filterLabel{padding: 2px;}
+  .model{ width: 140px; }
+
+
+}
+

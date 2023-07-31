@@ -268,7 +268,7 @@ export default function Home() {
         <div className={utilStyles.filterLabels}> 
           <div className={utilStyles.filterLabel}> 
             { /* <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> {area}  </div> */ }
-              <button onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg></button>
+              <div className='loc' onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg></div>
           </div>  
           <div className={showStates ? 'mega-menu visible' : 'mega-menu hide'}>
       {showStates && statesAndCities.map((item) => (

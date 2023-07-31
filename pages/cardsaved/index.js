@@ -48,9 +48,9 @@ function Booking() {
       <div className="">
       {/* <SquareForm /> */}
        
-            <div> 
+            <div className='success'> 
                 <h1> Thanks! Your request is being processed. </h1>
-                <h2> Your proposal will be approved if the model accept your request.  </h2>
+                <h2> Your proposal will be approved if the model accept the request.  </h2>
             </div>
             
         </div>

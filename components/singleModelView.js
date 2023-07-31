@@ -8,7 +8,7 @@ function SingleModelView(model) {
   //console.log('sssss', model, model[0].name);
   return (
     <div className='col2'>
-      <img className={utilStyles.modeSingleimg} src={model[0].picture_url} alt={model[0].name} />
+      <div className='modelSingel'> <img className={utilStyles.modeSingleimg} src={model[0].picture_url} alt={model[0].name} /> </div>
       <div className='modelDesc mt0 pt0'>
         <p className='mt0'>Name: <strong> {model[0].name} </strong></p>
         <p>Service Area: <strong> {model[0].service_area} </strong></p>
