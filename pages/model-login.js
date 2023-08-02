@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CURRENT_URL } from '../components/config.js';
 import Head from 'next/head';
 import utilStyles from  '../styles/utils.module.css';
 // import globalcss from  '../styles/globals.css';
@@ -17,7 +18,7 @@ function ModelLogin() {
     const [message, setMessage] = useState(null);
     const [error, setError] = useState(null);
     
-
+    
 
     const [formData, setFormData] = useState({
       email: '',
@@ -41,7 +42,8 @@ function ModelLogin() {
             const { token } = response.data;
             const { success } = response.data;
             localStorage.setItem("token", token);
-            Router.push("http://localhost:3005/model-backend/orders");
+            let orderUrl = CURRENT_URL + 'model-backend/orders';
+            Router.push(orderUrl);
             
             
             // window.location.href = location.state ? location.state.from.pathname : '/';

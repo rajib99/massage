@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import utilStyles from  '../styles/utils.module.css';
 import Layout, { siteTitle } from '../components/layout';
+import{ CURRENT_URL } from '../components/config';
 import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
@@ -52,8 +53,8 @@ function ModelRegistration() {
       localStorage.setItem("token", token);
       
       console.log('insert id', message);
-
-      Router.push("http://localhost:3005/model-backend/profile?source=registration");
+      let profile_source =  CURRENT_URL + 'model-backend/profile?source=registration';
+      Router.push(profile_source);
 
       //   const { token } = response.data;
       //   localStorage.setItem("token", token);

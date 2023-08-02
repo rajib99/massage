@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Router from "next/router";
+import{ CURRENT_URL } from '../components/config';
 import loginCss from '../../components/admin/login.module.css'
 
 const Login = (location) => {
@@ -18,7 +19,8 @@ const Login = (location) => {
 
         const { token } = response.data;
         localStorage.setItem("token", token);
-        Router.push("http://localhost:3005/admin-backend");
+        let admin_backend_url = CURRENT_URL + 'admin-backend';
+        Router.push(admin_backend_url);
         // window.location.href = location.state ? location.state.from.pathname : '/';
     } catch (error) {
       console.error(error);
