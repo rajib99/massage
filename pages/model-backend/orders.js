@@ -4,7 +4,7 @@ import Layout, { siteTitle } from '../../components/model/layout';
 import modelStyle from '../../styles/model.module.css';
 import withAuth from "../../components/admin/withAuth";
 import axios from 'axios';
-import OrderSingle from "./orderSingle";
+import OrderSingle from "./OrderSingle.js";
 
 
 const Orders = () => {
@@ -58,6 +58,10 @@ const Orders = () => {
  
   }, [status]);
 
+  if (!orderData || orderData.length === 0) {
+    return <div>Loading...</div>; // You can display a loading state while data is being fetched
+  }
+
   return (
     <Layout orders>
       <Head>
@@ -95,9 +99,11 @@ const Orders = () => {
         </div>
       ))} */}
       <tbody> 
+
        {orderData && orderData.map((order, index) => (
         // <OrderSingle key={index} {...order} changeOrderStatus={changeOrderStatus} />
-        <OrderSingle changeOrderStatus={changeOrderStatus} key={index} order={order} />
+        // <OrderSingle changeOrderStatus={changeOrderStatus} key={index} order={order} />
+        <OrderSingle key={index} changeOrderStatus={changeOrderStatus}  order ={order}  />
       ))}
       </tbody>
       </table>

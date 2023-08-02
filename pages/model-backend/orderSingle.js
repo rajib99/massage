@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-function OrderSingle({ changeOrderStatus, order }) {
+function OrderSingle({changeOrderStatus, order}) {
 
     // const changestats = (status) => {
     //     const xx = changeOrderStatus(status);
@@ -30,16 +30,17 @@ function OrderSingle({ changeOrderStatus, order }) {
     }
 
   // console.log('sssss', order);
+{/* <td> {order.order_status} <br/> {order.order_status == "Initiated"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </td>  */}
+
   return (
-    <tr>
-      
-          <td> {order.date_of_creation} </td>
-          <td> {order.service_address} </td>
-          <td> {order.service_type} </td>
-          <td> {order.service_time} </td>
-          {/* <td> {order.order_status} <br/> {order.order_status == "Initiated"?  <div><button onClick={()=>changestats("Approved")}>Approve</button>  <button onClick={()=>changestats("Denied")}>Deny</button> </div> : ''} </td>  */}
-          <td> {order.order_status}  </td> 
-    </tr>
+      <tr>
+            <td> {order? order.date_of_creation : ''} </td>
+            <td> {order? order.service_address : ''} </td>
+            <td> {order? order.service_type : ''} </td>
+            <td> {order? order.service_time : ''} </td>
+            <td> {order? order.order_status : ''}  </td> 
+      </tr>
+    
   );
 }
 
