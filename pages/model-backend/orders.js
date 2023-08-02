@@ -4,7 +4,7 @@ import Layout, { siteTitle } from '../../components/model/layout';
 import modelStyle from '../../styles/model.module.css';
 import withAuth from "../../components/admin/withAuth";
 import axios from 'axios';
-import OrderSingle from "./OrderSingle.js";
+import OrderSingle from "./orderSingle.js";
 
 
 const Orders = () => {
