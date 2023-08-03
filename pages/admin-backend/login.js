@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Router from "next/router";
-import{ CURRENT_URL } from '../components/config';
+import{ CURRENT_URL } from '../../components/config';
 import loginCss from '../../components/admin/login.module.css'
 
 const Login = (location) => {
