@@ -14,8 +14,9 @@ const MyPaymentForm = (params) => (
      * Identifies the calling form with a verified application ID generated from
      * the Square Application Dashboard.
      */
-    
-    applicationId="sandbox-sq0idb-90pxZJ69rbf3lNuPBFdURg"
+    // //sandbox
+    // applicationId="sandbox-sq0idb-90pxZJ69rbf3lNuPBFdURg"
+    applicationId="sq0idp-gL8WgKdyA4DEv0Pa0eGi6A"
     /**
      * Invoked when payment form receives the result of a tokenize generation
      * request. The result will be a valid credit card or wallet token, or an error.
