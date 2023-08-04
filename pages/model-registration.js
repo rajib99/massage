@@ -15,7 +15,7 @@ import Router from 'next/router';
 function ModelRegistration() {
 
     const [message, setMessage] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
    
 
@@ -44,6 +44,7 @@ function ModelRegistration() {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await axios.post('https://spagram.com/api/create-model.php', formData);
       setMessage('Registration successful')
       setFormData(null);
@@ -51,6 +52,7 @@ function ModelRegistration() {
       const { token } = response.data;
       const { message } = response.data;
       localStorage.setItem("token", token);
+      setLoading(false)
       
       console.log('insert id', message);
       let profile_source =  CURRENT_URL + 'model-backend/profile?source=registration';
@@ -72,7 +74,7 @@ function ModelRegistration() {
         <title> Model Register/Login page</title>
       </Head>
       <div className="registration-container">
-      <Link href='/model-login'> Login </Link> 
+       
             <h2> Fill the form to register as a Model </h2>
             <form onSubmit={handleRegistration}>
                 <div>
@@ -93,8 +95,12 @@ function ModelRegistration() {
                     <input type="password" id="password" name="password" onChange={handleChange}  required/>
                 </div>
                 
+                <div class="submitbox"> 
                 <button className='button' type="submit">Submit</button>
+                 { loading? <img width="30px" src="images/loading.gif" />: ' ' } 
+                </div>
                 <p className='message'> {message}</p>
+                If you are already a member <Link href='/model-login'> Login </Link>
 
                 
             </form>

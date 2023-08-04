@@ -142,6 +142,7 @@ const Profile = () => {
   const handleModelUpdate = async (e) => {
     e.preventDefault();
     try {
+       setLoading(true);
       model.modelId = id;
       model.selectedAreas = model.selectedAreas.toString();
       model.location_type = model.location_type.toString();
@@ -153,6 +154,7 @@ const Profile = () => {
       const response = await axios.post('https://spagram.com/api/update-model.php', model);
       console.log('model update', response.data);
       setMessage('Update successful')
+      setLoading(false)
       model.selectedAreas = model.selectedAreas.split(",");
       model.location_type = model.location_type.split(",");
     } catch (error) {
@@ -216,6 +218,7 @@ const Profile = () => {
           setLoading(true);
           const response = await axios.get(url);
           const result = response.data;
+          
           // setModel({...model, phone: '89999'})
           let areaArr = result.service_area.split(",");
           let locationTypeArr = result.location_type.split(",");
@@ -353,8 +356,10 @@ const Profile = () => {
         )) }
           
           
-           
-          <button className='button' type="submit">Update Profile </button>
+           <div class="submitbox"> 
+            <button className='button' type="submit">Update Profile </button>
+            { loading? <img width="30px" src="images/loading.gif" />: ' ' } 
+          </div>
           <p className='message'> {message} </p>
         </form>
        : <h2> Loading....  </h2> }

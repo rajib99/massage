@@ -51,7 +51,7 @@ img {
 }
 .col2{ display: flex; padding: 20px; }
 .col2 div{ padding: 20px }
-.col2 .modelDesc { padding-right: 0; }
+.col2 .modelDesc { padding-right: 0; width: 220px; }
 .cardinfo {padding: 0 !important; margin-bottom: 20px; }
 .cardinfo input { margin-bottom: 0 !important; margin-right: 10px; }
 label{display: block;}
@@ -368,6 +368,12 @@ input[type="submit"]:hover {
 }
 
 .footer{ margin: 20px; text-align: center;}
+.submitbox{ display: flex; align-items: center;}
+.submitbox img{ margin-left: 20px; width: 30px; height: 30px; }
+header a{ color: #000; }
+
+
+
 
 
 @media only screen and (max-width: 1000px) {

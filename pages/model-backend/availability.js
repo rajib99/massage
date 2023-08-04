@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout, { siteTitle } from '../../components/model/layout';
+import { CURRENT_URL } from '../../components/config';
 import withAuth from "../../components/admin/withAuth";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -32,6 +33,7 @@ const Availability = () => {
     return time.getHours() > 12 ? "text-success" : "text-error";
   };
 
+  let loading_url = CURRENT_URL + 'images/loading.gif';
 
   const availHeaderClass = `${modelCss.availList} ${modelCss.availList_header}`;
 
@@ -179,11 +181,14 @@ console.log('Timestamp in EST timezone:', timestamp);
   const handleAvaiability = async (e) => {
     if (e !== undefined) e.preventDefault();
     try {
+      setLoading(true);
       const modelid = localStorage.getItem("token");
       formData.modelId = modelid;
       formData.availability = JSON.stringify(availArr);
       const response = await axios.post('https://spagram.com/api/update-model-time.php', formData);
       console.log('rest from php', response.data);
+      setLoading(false);
+
       if(response.data == '1') {
             console.log('updated the time')
             // window.location.href = location.state ? location.state.from.pathname : '/';
@@ -286,8 +291,12 @@ console.log('Timestamp in EST timezone:', timestamp);
               />  
           </div>
           
+          
+          
+          <div class="submitbox"> 
           <button type='submit' className={modelCss.save} onClick={addTime}> Add </button>
-        
+                 { loading? <img width="30px" src={loading_url} />: ' ' } 
+          </div>
       </div>
     </form>
 

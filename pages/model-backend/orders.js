@@ -58,9 +58,9 @@ const Orders = () => {
  
   }, [status]);
 
-  if (!orderData || orderData.length === 0) {
-    return <div>Loading...</div>; // You can display a loading state while data is being fetched
-  }
+  // if (!orderData || orderData.length === 0) {
+  //   return <div>Loading...</div>; // You can display a loading state while data is being fetched
+  // }
 
   return (
     <Layout orders>

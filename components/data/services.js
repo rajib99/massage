@@ -22,6 +22,7 @@ const services = [
     { id: "foot", name: "Foot massage" },
     { id: "tui-na", name: "Tui Na massage" },
     { id: "shiatsu-foot", name: "Shiatsu foot massage" },
+    { id: "sensual", name: "Sensual" },
   ];
 
 
