@@ -67,7 +67,7 @@ const MyPaymentForm = (params) => (
      * Identifies the location of the merchant that is taking the payment.
      * Obtained from the Square Application Dashboard - Locations tab.
      */
-    locationId="LSAS6X81GZC05"
+    locationId="L9EE047NGRTAM"
   >
     <CreditCard>
       Save Card

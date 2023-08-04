@@ -362,7 +362,7 @@ const Profile = () => {
           </div>
           <p className='message'> {message} </p>
         </form>
-       : <h2> Loading....  </h2> }
+       : <h2> Updating....  </h2> }
       </section>
       
     </Layout>
