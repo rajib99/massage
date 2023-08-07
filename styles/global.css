@@ -371,6 +371,8 @@ input[type="submit"]:hover {
 .submitbox{ display: flex; align-items: center;}
 .submitbox img{ margin-left: 20px; width: 30px; height: 30px; }
 header a{ color: #000; }
+.smallfont{ font-size: 14px; margin-top: 0;}
+.mktitle{ margin-bottom: 0;}
 
 
 

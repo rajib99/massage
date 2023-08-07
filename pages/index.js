@@ -10,6 +10,7 @@ import statesAndCities from '../components/data/areas';
 import results from '../components/data/areasearch';
 import services from '../components/data/services';
 import SquareForm from '../components/squareform';
+import ReactGA from 'react-ga';
 
 
 {/* <SquareForm /> */}
@@ -52,7 +53,8 @@ export default function Home() {
  
   // console.log('servicessss', services);
 
-
+  const TRACKING_ID = "G-WEX6FW6EN4"; // YOUR_OWN_TRACKING_ID
+  ReactGA.initialize(TRACKING_ID);
 
   const handleResultClick = (result) => {
     setSelectedResult(result);

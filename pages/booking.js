@@ -535,7 +535,9 @@ function Booking() {
             </div>
             { !isTimeSelected? 
               <div className='date-selector'> 
-              <h2> Make an Appointment with { singleModel && singleModel[0].name} </h2>
+              <h2 className='mktitle'> Make an Appointment with { singleModel && singleModel[0].name} </h2>
+              <p className='smallfont'> If the model accept your request, we will charge you ${ singleModel && get10percent(singleModel[0].price) } (10% of ${singleModel && singleModel[0].price} )  </p>
+              <p> Select Call type </p>
                 { singleModel && location_selector() }
                 <div className='date-changer'>
                   <a onClick={()=>goPrevDay(isDateSelected? isDateSelected : tdate)}> Back &nbsp;&nbsp; </a>
