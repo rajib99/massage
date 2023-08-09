@@ -39,6 +39,7 @@ const Profile = () => {
     phone: '',
     email: '',
     gender: '',
+    selectedAreas_primary: '',
     selectedAreas: Array(),
     location_type: Array(),
     incall_location: '',
@@ -103,6 +104,14 @@ const Profile = () => {
   };
 
 
+  const handleAreaChangePrimary = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions).map(
+      (option) => option.value
+    );
+    setModel({...model, selectedAreas_primary: selectedOptions});
+
+  };
+
   const handleAreaChange = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions).map(
       (option) => option.value
@@ -110,6 +119,8 @@ const Profile = () => {
     setModel({...model, selectedAreas: selectedOptions});
 
   };
+
+  
 
   const handleLocationTypeChange = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions).map(
@@ -144,6 +155,8 @@ const Profile = () => {
     try {
        setLoading(true);
       model.modelId = id;
+      
+      model.selectedAreas_primary = model.selectedAreas_primary.toString();
       model.selectedAreas = model.selectedAreas.toString();
       model.location_type = model.location_type.toString();
       const serviceAll = selectedServices.join(",");
@@ -155,6 +168,8 @@ const Profile = () => {
       console.log('model update', response.data);
       setMessage('Update successful')
       setLoading(false)
+      
+      model.selectedAreas_primary = model.selectedAreas_primary.split(",");
       model.selectedAreas = model.selectedAreas.split(",");
       model.location_type = model.location_type.split(",");
     } catch (error) {
@@ -220,12 +235,14 @@ const Profile = () => {
           const result = response.data;
           
           // setModel({...model, phone: '89999'})
+
+          let areaArr_primary = result.service_area_primary.split(",");
           let areaArr = result.service_area.split(",");
           let locationTypeArr = result.location_type.split(",");
           let servicesArr = result.services.split(",");
           setSelectedServices(servicesArr);
-          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
-            age: result.age, height: result.height, color: result.color, about: result.about, service_area: result.service_area, 
+          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas_primary: areaArr_primary, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
+            age: result.age, height: result.height, color: result.color, about: result.about, service_area_primary: result.service_area_primary, service_area: result.service_area, 
             servicePrices: result.services_prices, picture_url: result.picture_url })
 
             
@@ -283,9 +300,23 @@ const Profile = () => {
             
           </ul>
 
+          <ul className={modelCss.primary_area}> <li> Primary location <br/> </li> <li> <select name='primary_area' multiple value={model.selectedAreas_primary} onChange={handleAreaChangePrimary} style={{ width: '100%', height: '300px' }}> 
+          {
+          areas.map((group) => (
+          <optgroup key={group.label} label={group.label}>
+            {group.options.map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+        
+          
+          </select>  </li> </ul>
          
 
-          <ul> <li> Area you serve <br/>(press and hold ctrl/command to select multiple location) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
+          <ul> <li> Secondary location <br/>(press and hold ctrl/command to select multiple location) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
           {
           areas.map((group) => (
           <optgroup key={group.label} label={group.label}>

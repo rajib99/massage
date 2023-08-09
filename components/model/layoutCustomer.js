@@ -63,6 +63,7 @@ export default function Layout({ children, home }) {
               <Link href="/customer-backend/orders"> Active Orders </Link>
               <Link href="/customer-backend/past-orders"> Past Orders </Link>
               <Link href="/customer-backend/profile"> Profile Info </Link>
+              <Link href="/customer-backend/review"> Review </Link>
               
             </ul>
         </section>

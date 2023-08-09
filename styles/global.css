@@ -7,8 +7,8 @@ body {
   line-height: 1.6;
   font-size: 18px;
 }
-body{ background: rgb(249,69,179); background: radial-gradient(circle, rgba(249,69,179,1) 0%, rgba(217,0,133,0.9346332282913166) 35%, rgba(217,0,133,0.07188813025210083) 100%); }
-
+body{}
+main{ width: 90%; margin: auto; margin-top: 40px;}
 * {
   box-sizing: border-box;
 }
@@ -57,8 +57,8 @@ img {
 label{display: block;}
 input{ display: block; }
 
-.menu{ display: flex; }
-.menu li{ padding: 0 30px; font-size: 1rem; list-style: none;}
+.menu{ display: flex; float: right; margin-top: 10px; }
+.menu li{ padding: 0 30px; font-size: 1rem; list-style: none; }
 
 
 .menu li a{ font-size: 1rem;}
@@ -221,7 +221,7 @@ input[type="submit"]:hover {
 .filterbtn{ padding-top: 6px; padding-bottom: 8px; margin-top: 13px; }
 
 
-.menu{ color: #000; font-size: 16px; cursor: pointer; padding: 5px 5px; border-radius: 5px; border: 1px solid #ccc; }
+.menu{ color: #000; font-size: 16px; }
 .menu svg{ margin-top: 2px; margin-left: 5px; }
 
 .mega-menu {
@@ -230,7 +230,7 @@ input[type="submit"]:hover {
   padding: 16px;
   margin-bottom: 16px;
   position: absolute;
-  background: #faead7;
+  background: rgb(217 0 133 / 50%);
   z-index: 9;
   margin-top: 60px;
   max-height: 300px;
@@ -295,7 +295,7 @@ input[type="submit"]:hover {
 .menu-cards3{ clear: both; display: block;  }
 .menu-cards4{ clear: both; display: block;  } */
 
-.filter-container div.loc{ background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 14px; color: #000; cursor: pointer; }
+.filter-container div.loc{ background: #fff; border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 14px; color: #000; cursor: pointer; padding-left: 12px; }
 .filter-container div.loc svg{ position: relative; top:3px; fill: #737373; }
 .modelSingel{ max-height: 600px; overflow: hidden; width: 400px; padding: 0 !important; }
   
@@ -306,19 +306,21 @@ input[type="submit"]:hover {
 }
   
 
-.filter-container button{ background: transparent; border: 1px solid #ccc; border-radius: 5px; padding: 5px; font-size: 16px; }
+.filter-container button{ background: transparent; padding: 5px; font-size: 16px; }
 .menu-cards{ clear: both;  }
 .menu-cards label{ float: left; position: relative; font-weight: 300; font-size: 16px;  }
 .menu-cards button{ float: left; background: transparent; border: none; padding: 3px 0;  }
 .menu-cards input{  float: left;  }
-.cities{ margin-left: 15px; background-color: #ddd3c8; clear: both;  }
+.cities{ margin-left: 15px; background-color: rgb(217 0 133 / 63%); clear: both;  }
 .citypadding { padding: 5px 10px 30px 5px; }
 .cities input{ position: relative; top: 3px;}
-.borough{ background-color: #c0c5c1; }
-.neighborhood{ background-color:#909e93; }
+.borough{ background-color: rgb(217 0 133 / 84%); }
+.neighborhood{ background-color: #be0275; }
 .neighborhood label{ float: none; text-align: left; }
 
 /* .cities .menu-cards:last-child label{ background-color: #ddd3c8; width: 100%; } */
+.modelSingel div{ padding: 0; }
+.bookingpage .col2{ padding: 0;}
 
 
 .react-datepicker-wrapper input{ position: relative; top: 9px; }
@@ -367,7 +369,7 @@ input[type="submit"]:hover {
   background-color: #f6b1d6;
 }
 
-.footer{ margin: 20px; text-align: center;}
+.footer{ margin-top: 100px; padding: 40px;  text-align: center; background: rgb(249,69,179); background: radial-gradient(circle, rgba(249,69,179,1) 0%, rgba(217,0,133,0.9346332282913166) 35%, rgba(217,0,133,0.07188813025210083) 100%);  }
 .submitbox{ display: flex; align-items: center;}
 .submitbox img{ margin-left: 20px; width: 30px; height: 30px; }
 header a{ color: #000; }
@@ -375,7 +377,42 @@ header a{ color: #000; }
 .mktitle{ margin-bottom: 0;}
 
 
+select {
+  /* Increase the font size to make the arrow larger */
+ 
+  
+  /* Set a background color to cover the default arrow */
+  background-color: white;
 
+  /* Add padding to the right to create space for the arrow */
+  padding-right: 25px;
+
+  /* Use a custom arrow image */
+  background-image: url('/images/arrow.png');
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 15px; /* Adjust the size of the arrow image */
+  -webkit-appearance: none; /* Hide the default arrow on some browsers */
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.locarr{
+  float: right;
+  position: relative;
+  top: 7px;
+  right: -5px;
+  width: 14px;
+  margin-left: 10px;
+}
+
+.react-datepicker-wrapper input::placeholder {
+  color: #000; /* Change the color to your desired color */
+}
+
+.home-filter-params{ float: left; }
+.home-filter-cards{ clear: both; }
+.viewbyicon{ margin-top: 18px; }
 
 
 @media only screen and (max-width: 1000px) {
@@ -424,6 +461,9 @@ header a{ color: #000; }
     height: auto;
   }
 }
+
+
+
 
 
 

@@ -2,13 +2,24 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import utilStyles from  '../styles/utils.module.css';
 import ModelReiview from '../components/modelReview';
+import ReactSimplyCarousel from 'react-simply-carousel';
+
 
 
 function SingleModelView(model) {
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   //console.log('sssss', model, model[0].name);
   return (
     <div className='col2'>
-      <div className='modelSingel'> <img className={utilStyles.modeSingleimg} src={model[0].picture_url} alt={model[0].name} /> </div>
+      <div className='modelSingel'>  
+
+      
+
+
+        <img className={utilStyles.modeSingleimg} src={model[0].picture_url} alt={model[0].name} /> 
+            
+     
+      </div>
       <div className='modelDesc mt0 pt0'>
         <p className='mt0'>Name: <strong> {model[0].name} </strong></p>
         <p>Service Area: <strong> {model[0].service_area} </strong></p>

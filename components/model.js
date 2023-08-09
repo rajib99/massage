@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 
 //
-function Model({ photoOnlyView, date, time, id, picture_url, name, service_area, price, services_prices, gender, color, height, availability }) {
+function Model({ photoOnlyView, date, time, id, picture_url, name, service_area_primary, service_area, price, services_prices, gender, color, height, availability }) {
 
     const router = useRouter();
     const [isActive, setActive] = useState(true);
@@ -46,7 +46,8 @@ function Model({ photoOnlyView, date, time, id, picture_url, name, service_area,
                 width={20}
                 alt=""
               /> 
-     <span> {service_area.replace(/,/g, ', ')} </span>
+     {/* <span> {service_area.replace(/,/g, ', ')} </span> */}
+     <span> {service_area_primary} </span>
     </div>
         {/* <p>{services_prices}</p> */}
 

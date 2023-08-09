@@ -265,11 +265,11 @@ export default function Home() {
         Search for massage anywhere in New York, New Jersey, and Connecticut.
       </section>
       
-      <section className='filter-container'> 
+      <section className='filter-container home-filter-params'> 
         <div className={utilStyles.filterLabels}> 
           <div className={utilStyles.filterLabel}> 
             { /* <div className='menu' onClick={ () => setSelectedLocation(!selectedLocation)}> {area}  </div> */ }
-              <div className='loc' onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path d="M12 17.414 3.293 8.707l1.414-1.414L12 14.586l7.293-7.293 1.414 1.414L12 17.414z"/></svg></div>
+              <div className='loc' onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <img className='locarr' src='images/arrow.png' /></div>
           </div>  
           <div className={showStates ? 'mega-menu visible' : 'mega-menu hide'}>
       {showStates && statesAndCities.map((item) => (
@@ -497,7 +497,7 @@ export default function Home() {
            width={30} height={30} /> </div> 
           }
       </section>
-      <section className='mtop10'>
+      <section className='mtop10 home-filter-cards'>
         <Models photoOnlyView={photoOnlyView} apiUrl={filteredUrl} />
       </section>
     </Layout>

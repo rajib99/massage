@@ -1,7 +1,8 @@
 .container {
-    max-width: 90%;
-    padding: 0 1rem;
-    margin: 3rem auto 6rem;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+
   }
 
   @media only screen and (max-width: 1000px) {
@@ -17,10 +18,19 @@
 
   
   .header { 
-    display: flex;
+    display: inline-block;
+    width: 100%;
     flex-direction: column;
     align-items: center;
+    background: rgb(249,69,179); background: radial-gradient(circle, rgba(249,69,179,1) 0%, rgba(217,0,133,0.9346332282913166) 35%, rgba(217,0,133,0.07188813025210083) 100%); 
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
   }
+
+  .logoa{ display: block; width: 300px; float: left; }
+
   
   .backToHome {
     margin: 3rem 0 0;

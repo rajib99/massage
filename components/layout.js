@@ -39,7 +39,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        <a href="https://app.tristatemassage.com/"><img className='logomain' src="https://www.tristatemassage.com/wp-content/uploads/2023/03/website-logo-pink-1.png" /> </a>
+        <a className={styles.logoa}  href="https://app.tristatemassage.com/"><img className='logomain' src="https://www.tristatemassage.com/wp-content/uploads/2023/03/website-logo-pink-1.png" /> </a>
         {home ? (
           <>            
             <ul className='menu'>
@@ -74,5 +74,5 @@ export default function Layout({ children, home }) {
       )}
       <div className='footer'>  &copy; 2023 TriStateMassage LLC. All rights reserved! </div>
     </div>
-  );
+  )
 }
