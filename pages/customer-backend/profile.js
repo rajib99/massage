@@ -30,7 +30,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [id, setId] = useState(null);
   const [model, setModel] = useState({
-    modelId: '',
+    customerId: '',
     name: '',
     phone: '',
     email: '',
@@ -61,12 +61,14 @@ const Profile = () => {
   const handleModelUpdate = async (e) => {
     e.preventDefault();
     try {
-      model.modelId = id;
+      model.customerId = id;
       // model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
       const response = await axios.post('https://spagram.com/api/update-customer.php', model);
-      setMessage('Update successful')
+      console.log('post reply', response.data, response.status)
+      response.data == "1" ? setMessage('Update successful') : setMessage('Something is wrong! Please contact admin')
+      
     } catch (error) {
       console.error(error);
     }

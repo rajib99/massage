@@ -74,7 +74,6 @@
     flex-direction: row;
     -ms-flex-item-align: auto;
     flex-wrap: wrap;
-    border: 1px solid #ccc;
     padding: 10px;
     border-radius: 20px;
     justify-content: center;
@@ -109,7 +108,7 @@
 }
 
 .modelimgCnt{ height: 250px; overflow: hidden; position: relative;}
-.modelName{ font-size: 20px; margin-bottom: 5px; margin-top: 0; }
+.modelName{ font-size: 20px; margin-bottom: 0; margin-top: 0; }
 .stype{ max-width: 120px; }
 .ethnicity{ max-width: 100px;}
 

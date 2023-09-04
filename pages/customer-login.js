@@ -40,7 +40,7 @@ function CustomerLogin() {
       if(response.data.success == '1') {
             const { token } = response.data;
             localStorage.setItem("customertoken", token);
-            Router.push("/");
+            Router.push("/customer-backend");
             // window.location.href = location.state ? location.state.from.pathname : '/';
       }else{
         setError(true);

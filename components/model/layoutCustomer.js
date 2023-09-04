@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 
 const name = 'Massage at Home';
-export const siteTitle = 'Muew Muew site title';
+export const siteTitle = 'Customer Backend';
 
 export default function Layout({ children, home }) {
   return (
@@ -60,8 +60,7 @@ export default function Layout({ children, home }) {
         <section className='admin-menu'>
             <ul>
               <Link href="/customer-backend/"> Dashboard </Link>
-              <Link href="/customer-backend/orders"> Active Orders </Link>
-              <Link href="/customer-backend/past-orders"> Past Orders </Link>
+              <Link href="/customer-backend/orders"> Orders </Link>
               <Link href="/customer-backend/profile"> Profile Info </Link>
               <Link href="/customer-backend/review"> Review </Link>
               

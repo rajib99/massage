@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout, { siteTitle } from '../../components/model/layoutCustomer';
-import modelCss from '../../styles/model.module.css';
+import reviewCss from '../../styles/model.module.css';
 import ServicePricesUI from '../../components/servicePricesUI';
 import withAuth from "../../components/admin/withAuthCustomer";
 import axios from 'axios';
+import ReviewSingle from "./ReviewSingle.js";
 
 
 //name,phone,email,gender,height,color,about,service_area,servicePrices,image,
@@ -12,7 +13,7 @@ import axios from 'axios';
 
 const Review = () => {
 
-  // const originalUrl = 'https://spagram.com/api/models.php';
+  // const originalUrl = 'https://spagram.com/api/reviews.php';
   // const [baseUrl, setBaseUrl] = useState(originalUrl);
   // const [servPri, setServPri] = useState([
   //   { id: 1, name: 'Service 1', Price: '10' },
@@ -29,95 +30,64 @@ const Review = () => {
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
   const [id, setId] = useState(null);
-  const [model, setModel] = useState({
-    modelId: '',
-    name: '',
-    phone: '',
-    email: '',
-    address: '',
-    password: ''
-  });
+  const [review, setReview] = useState();
+  // const [review, setReview] = useState({
+  //   id: '',
+  //   model_name: '',
+  //   review_count: ''
+  // });
+
+  const reveiwDummy = [ {"Name": "Helena Dummy", "id": "11" }, {"Name": "Helena Dummy", "id": "11" }]
 
 
-  const handleInputChange = (e) => {
-    setModel({...model, [e.target.name]:  e.target.value})
-  }
 
-  const handleFileUpload = (e) => {
+  // const handleReviewUpdate = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     review.reviewId = id;
+  //     // review.picture_url = file;
+  //     review.servicePrices = JSON.stringify(servPri);
+  //     console.log('review final',review);
+  //     const response = await axios.post('https://spagram.com/api/update-customer.php', review);
+  //     setMessage('Update successful')
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
 
-    let files = e.target.files;
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(files[0]);
-
-      fileReader.onload = (event) => {
-          // setFile(event.target.result);
-          setModel({...model, picture_url:event.target.result })
-      }
+  // };
 
 
+
+  // useEffect(() => {
+  //   const customer_id = localStorage.getItem("customertoken");
+  //   setId(customer_id);
+  //   console.log('id', customer_id);
+  //   let url = "https://spagram.com/api/get-orders-to-review.php?customer_id=" + customer_id;
     
-  };
-
-  const handleReviewUpdate = async (e) => {
-    e.preventDefault();
-    try {
-      model.modelId = id;
-      // model.picture_url = file;
-      model.servicePrices = JSON.stringify(servPri);
-      console.log('model final',model);
-      const response = await axios.post('https://spagram.com/api/update-customer.php', model);
-      setMessage('Update successful')
-    } catch (error) {
-      console.error(error);
-    }
-
-  };
-
-  function handleServPri(){
-
-  }
-
-
-  // function showPrices(sp){
-  //   return(
-  //     sp && sp.map((sps) => (
-  //         <ul><li> {sps.name} </li> <li> $ <input type="text" onChange={handleServChange} value={sps.Price}></input> </li></ul>
-  //       ))
-
-      
-  //   ) 
-    
-  // }
-
-
-  useEffect(() => {
-    const modelid = localStorage.getItem("customertoken");
-    setId(modelid);
-    console.log('id', modelid);
-    let url = "https://spagram.com/api/single-customer.php?id=" + id;
-    
-    const getData = async (id) => {
-        try {
-          setLoading(true);
-          const response = await axios.get(url);
-          const result = response.data;
-          // setModel({...model, phone: '89999'})
-          console.log('customer reuturned', result);
+  //   const getData = async (id) => {
+  //       try {
+  //         setLoading(true);
+  //         const response = await axios.get(url);
+  //         const result = response.data;
+  //         // setReview({...review, phone: '89999'})
+  //         console.log('customer reuturned', result, typeof result);
           
-          setModel({name: result.name, phone: result.phone, email: result.email, address: result.address, password: result.Password})
+  //         setReview(result)
           
-            setLoading(false);
-          setError(null);
-        } catch (err) {
-          setError(err.message);
-          // setData(null);
-        } finally {
-          setLoading(false);
-        }
-      };
+  //         setLoading(false);
+  //         setError(null);
+  //       } catch (err) {
+  //         setError(err.message);
+  //         // setData(null);
+  //       } finally {
+  //         setLoading(false);
+  //       }
+  //     };
 
-    getData();
-  }, [id]);
+  //   getData();
+  // }, [id]);
+
+
 
   return (
     <Layout customerreview>
@@ -127,26 +97,14 @@ const Review = () => {
       
       <h2> Review  </h2>
 
-      <section className={modelCss.reviewEdit}>
+      <section className={reviewCss.reviewEdit}>
         {!loading? 
-        <form onSubmit={handleReviewUpdate}>
-            <div class="review-card">
-                <div class="rating">4.5</div>
-                <div class="user-details">
-                <h2 class="user-name">John Doe</h2>
-                <p class="comment">"Great product! Highly recommended."</p>
-            </div>
-            </div>
-          <ul> <li> Name </li> <li> <input type="text" onChange={handleInputChange} name="name" value={model.name}></input> </li> </ul>
-          <ul> <li> Phone </li> <li> <input type="text" onChange={handleInputChange} name="phone" value={model.phone}></input> </li> </ul>
-          <ul> <li> Email </li> <li> <input type="text" onChange={handleInputChange} name="email" value={model.email}></input> </li> </ul>
-          <ul> <li> Password </li> <li> <input type="password" onChange={handleInputChange} name="password" value={model.password}></input> </li> </ul>
-          
-          
-           
-          <button className='button' type="submit"> Update </button>
-          <p className='message'> {message} </p>
-        </form>
+        <> 
+         {reveiwDummy && reveiwDummy.map((rev, index) => (
+          // <ReviewSingle key={index} reviewto={rev}  />
+          <ReviewSingle  />
+        ))}
+        </>
        : <h2> Loading....  </h2> }
       </section>
       

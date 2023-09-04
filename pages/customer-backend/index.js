@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout, { siteTitle } from '../../components/model/layoutCustomer';
-import utilStyles from '../../styles/utils.module.css';
+import modelCss from '../../styles/model.module.css';
 import Models from '../../components/models';
 import withAuth from "../../components/admin/withAuthCustomer";
 import Link from 'next/link';
@@ -33,16 +33,13 @@ const Home = () => {
       </Head>
       
       <h2> Customer Dashboard </h2>
-      <h2> Order status </h2>
-      <h2> <Link href='customer-backend/profile'> Profile Info </Link> </h2>
-      <div className='oders'>
-        <div className='orderitem'>
-            <div> Oder id </div>
-            <div> Model name </div>
-            <div> Date/time </div>
-            <div> Address </div>
-        </div>
-      </div>
+       <div className={modelCss.quickLinks}>  
+        <ul>
+          <li><a href="/customer-backend/orders"> Orders </a></li>
+          <li><a href="/customer-backend/profile"> Profile </a></li>
+          <li><a href="#"> Review </a></li>
+        </ul>
+       </div>
       
     </Layout>
   );

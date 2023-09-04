@@ -4,6 +4,7 @@ import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import{ CURRENT_URL } from '../components/config';
 
 const name = 'Massage at Home';
 export const siteTitle = 'Tristate Massage';
@@ -39,7 +40,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        <a className={styles.logoa}  href="https://app.tristatemassage.com/"><img className='logomain' src="https://www.tristatemassage.com/wp-content/uploads/2023/03/website-logo-pink-1.png" /> </a>
+        <a className={styles.logoa}  href={CURRENT_URL}> <img className='logomain' src="https://www.tristatemassage.com/wp-content/uploads/2023/03/website-logo-pink-1.png" /> </a>
         {home ? (
           <>            
             <ul className='menu'>
