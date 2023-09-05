@@ -5,7 +5,7 @@ import reviewCss from '../../styles/model.module.css';
 import ServicePricesUI from '../../components/servicePricesUI';
 import withAuth from "../../components/admin/withAuthCustomer";
 import axios from 'axios';
-import ReviewSingle from "./ReviewSingle.js";
+import ReviewSingle from "./reviewSingle.js";
 
 
 //name,phone,email,gender,height,color,about,service_area,servicePrices,image,

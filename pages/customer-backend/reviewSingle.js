@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 
-function ReviewSingle({reviewto}) {
+function ReviewSingle() {
 
     // const changestats = (status) => {
     //     const xx = changeOrderStatus(status);
