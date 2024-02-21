@@ -36,7 +36,8 @@ img {
     padding: 5px;
     text-align: center;
 }
-.logomain{width: 300px;}
+/* .logomain{width: 300px;} */
+.logomain{width: 80px;}
 
 .button {
   cursor: pointer;
