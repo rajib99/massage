@@ -7,11 +7,6 @@ import Link from 'next/link';
 import axios from 'axios';
 import Router from 'next/router';
 
-
-
-
-
-
 function ModelRegistration() {
 
     const [message, setMessage] = useState(null);
@@ -40,17 +35,43 @@ function ModelRegistration() {
     };
 
 
+
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post('https://spagram.com/api/login-model.php', formData);
+        console.log('rest', response.data);
+        if(response.data.success == '1') {
+              const { token } = response.data;
+              const { success } = response.data;
+              localStorage.setItem("token", token);
+              let orderUrl = CURRENT_URL + 'model-backend/orders';
+              Router.push(orderUrl);
+              
+              
+              // window.location.href = location.state ? location.state.from.pathname : '/';
+        }else{
+          setError('Email/Password do not match. Please try again!');
+        }
+    
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+
   const handleRegistration = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
-      const response = await axios.post('https://spagram.com/api/create-model.php', formData);
-      setMessage('Registration successful')
+      console.log("endpoint hit")
+      const response = await axios.post('https://spagram.com/api/create-model-quick.php', formData);
       setFormData(null);
       console.log('insert model', response.data.message);
       const { token } = response.data;
       const { message } = response.data;
+      setMessage('Registration successful');
       localStorage.setItem("token", token);
       setLoading(false)
       
@@ -73,7 +94,27 @@ function ModelRegistration() {
       <Head>
         <title> Model Register/Login page</title>
       </Head>
-      <div className="registration-container">
+      <div class="registration-page"> 
+        <div class="login-cnt">
+         <h2> Login as a Model </h2>
+         <form onSubmit={handleLogin}>
+                
+                <div>
+                    <label>Email:</label>
+                    <input type="email" id="email" name="email" onChange={handleChange} required/>
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input type="password" id="password" name="password" onChange={handleChange}  required/>
+                </div>
+                
+                <button className='button' type="submit">Submit</button>
+                <p className='message'> {message}</p>
+            </form>
+           <p> {error? error: ''} </p>
+        
+        </div>
+        <div className="registration-container">
        
             <h2> Fill the form to register as a Model </h2>
             <form onSubmit={handleRegistration}>
@@ -106,6 +147,9 @@ function ModelRegistration() {
             </form>
  
         </div>
+      
+      </div>
+      
 
     </Layout>
   );

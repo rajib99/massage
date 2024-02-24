@@ -272,6 +272,7 @@ export default function Home() {
               <div className='loc' onClick={toggleShowStates}>{/*showStates ? 'Hide States' : 'Show States'*/} Location <img className='locarr' src='images/arrow.png' /></div>
           </div>  
           <div className={showStates ? 'mega-menu visible' : 'mega-menu hide'}>
+            <div className='close' onClick={toggleShowStates} >X</div>
       {showStates && statesAndCities.map((item) => (
         <div className='menu-cards' key={item.state}>
           <label>
@@ -488,7 +489,7 @@ export default function Home() {
           {/* <div onClick={handleFilter} className='buttont filterbtn'> Filter </div> */}
         </div>
       </section>
-      <section className='viewby'>
+      {/* <section className='viewby'>
           {
           photoOnlyView?    <div className='viewbyicon' title="View Model Photo & details" onClick={()=>setPhotoOnlyView(false)}>  <Image alt='More Info' src="/images/info.png"
           width={30} height={30} />  </div>
@@ -496,7 +497,7 @@ export default function Home() {
            <div className='viewbyicon' title=" Hide Model description" onClick={()=>setPhotoOnlyView(true)}> <Image alt='More Info' src="/images/info.png"
            width={30} height={30} /> </div> 
           }
-      </section>
+      </section> */}
       <section className='mtop10 home-filter-cards'>
         <Models photoOnlyView={photoOnlyView} apiUrl={filteredUrl} />
       </section>

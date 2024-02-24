@@ -107,10 +107,9 @@ function Booking() {
     };
 
     const router = useRouter();
-    const {singleApiUrl} = router.query;
-    const urlParams = new URLSearchParams(singleApiUrl);
-    let tdate = urlParams.get('date');
-    console.log('tdate', tdate);
+    
+    let singleApiUrl = "";
+    let tdate = "";
 
     // const modId = singleApiUrl.split("=")[1];
     // console.log('urs', modelID);
@@ -463,7 +462,9 @@ function Booking() {
   
   useEffect(() => {
     
-
+    singleApiUrl = localStorage.getItem('singleModelApiUrl');
+    const urlParams = new URLSearchParams(singleApiUrl);
+    tdate = urlParams.get('date');
 
     userLogin();
     // const { data } = 

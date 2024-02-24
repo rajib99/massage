@@ -110,7 +110,6 @@ function Booking() {
     const {singleApiUrl} = router.query;
     const urlParams = new URLSearchParams(singleApiUrl);
     let tdate = urlParams.get('date');
-    console.log('tdate', tdate);
 
     // const modId = singleApiUrl.split("=")[1];
     // console.log('urs', modelID);

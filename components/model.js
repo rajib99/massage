@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 
 
 //
-function Model({ photoOnlyView, date, time, id, picture_url, name, service_area_primary, service_area, price, services_prices, gender, color, height, availability }) {
+function Model({ slug, photoOnlyView, date, time, id, picture_url, name, service_area_primary, service_area, price, services_prices, gender, color, height, availability }) {
 
     const router = useRouter();
     const [isActive, setActive] = useState(true);
@@ -17,9 +17,10 @@ function Model({ photoOnlyView, date, time, id, picture_url, name, service_area_
         isActive? setActive(photoOnlyView) : setActive(photoOnlyView);
     }
     const handleClick = () => {
+      let singleModelApiUrl =  'https://spagram.com/api/models.php?id=' + id + '&date=' + date + '&time=' + time;
+        let setvalue = localStorage.setItem('singleModelApiUrl', singleModelApiUrl);
         router.push({
-          pathname: '/booking',
-          query: { singleApiUrl: 'https://spagram.com/api/models.php?id=' + id + '&date=' + date + '&time=' + time},
+          pathname: '/' + slug,
         });
       };
     

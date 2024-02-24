@@ -68,13 +68,16 @@ export default function Layout({ children, home }) {
           </>
         )}
       </header>
-      <main>{children}</main>
+      <main>{children}
+      
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">← Back to home</Link>
         </div>
       )}
-      <div className='footer'>  &copy; 2023 theCompany LLC. All rights reserved! </div>
+      </main>
+      
+      <div className='footer'>  &copy; 2024 Tri State Massage LLC. All rights reserved! </div>
     </div>
   )
 }

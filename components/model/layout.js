@@ -52,7 +52,7 @@ export default function Layout({ children, home }) {
                 <li> <Link href='/'> Home </Link> </li>
                 <li> <Link href='/'> Visit frontend site </Link> </li>
                 <li> <Link href='/support'> Contact Support </Link> </li>
-                <li> <Link href='/model-login'> Logout </Link> </li>
+                <li> <Link href='/logout'> Logout </Link> </li>
             </ul>
           </>
         )}

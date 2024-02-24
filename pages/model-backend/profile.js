@@ -35,6 +35,7 @@ const Profile = () => {
   const [id, setId] = useState(null);
   const [model, setModel] = useState({
     modelId: '',
+    slug: '',
     name: '',
     phone: '',
     email: '',
@@ -52,7 +53,8 @@ const Profile = () => {
     about: '',
     service_area: '',
     servicePrices: null,
-    picture_url: ''
+    picture_url: '',
+    status: ''
   });
 
   const areas = [
@@ -166,7 +168,7 @@ const Profile = () => {
       console.log('model final',model);
       const response = await axios.post('https://spagram.com/api/update-model.php', model);
       console.log('model update', response.data);
-      setMessage('Update successful')
+      setMessage('After you are done here, please go to the "Availability" tab from the left sidebar to set your available time.')
       setLoading(false)
       
       model.selectedAreas_primary = model.selectedAreas_primary.split(",");
@@ -241,9 +243,9 @@ const Profile = () => {
           let locationTypeArr = result.location_type.split(",");
           let servicesArr = result.services.split(",");
           setSelectedServices(servicesArr);
-          setModel({name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas_primary: areaArr_primary, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
+          setModel({slug: result.slug, name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas_primary: areaArr_primary, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
             age: result.age, height: result.height, color: result.color, about: result.about, service_area_primary: result.service_area_primary, service_area: result.service_area, 
-            servicePrices: result.services_prices, picture_url: result.picture_url })
+            servicePrices: result.services_prices, picture_url: result.picture_url, status: result.status })
 
             
             setServPri(result.services_prices)
@@ -266,13 +268,14 @@ const Profile = () => {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      
+      <h5> Profile Status: {model.status} </h5>
       <h2>  {initialMSg} </h2>
       <h2>  Personal info  </h2>
 
       <section className={modelCss.profileEdit}>
         {!loading? 
         <form onSubmit={handleModelUpdate}>
+          <ul> <li> Profile Url </li> <li> <input type="text" onChange={handleInputChange} name="slug" value={model.slug}></input> </li> </ul>
           <ul> <li> Name </li> <li> <input type="text" onChange={handleInputChange} name="name" value={model.name}></input> </li> </ul>
           <ul> <li> Phone </li> <li> <input type="text" onChange={handleInputChange} name="phone" value={model.phone}></input> </li> </ul>
           <ul> <li> Email </li> <li> <input type="text" onChange={handleInputChange} name="email" value={model.email}></input> </li> </ul>
@@ -300,7 +303,7 @@ const Profile = () => {
             
           </ul>
 
-          <ul className={modelCss.primary_area}> <li> Primary location <br/> </li> <li> <select name='primary_area' multiple value={model.selectedAreas_primary} onChange={handleAreaChangePrimary} style={{ width: '100%', height: '300px' }}> 
+          <ul className={modelCss.primary_area}> <li> <strong> Primary location </strong>  (Select only one location)  <br/> </li> <li> <select name='primary_area' multiple value={model.selectedAreas_primary} onChange={handleAreaChangePrimary} style={{ width: '100%', height: '300px' }}> 
           {
           areas.map((group) => (
           <optgroup key={group.label} label={group.label}>
@@ -316,7 +319,7 @@ const Profile = () => {
           </select>  </li> </ul>
          
 
-          <ul> <li> Secondary location <br/>(press and hold ctrl/command to select multiple location) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
+          <ul className={modelCss.primary_area}> <li> <strong> Secondary location </strong> <br/>(press and hold ctrl/command to select multiple location, Press and hold 'Shift' and select start to end to select range of items) </li> <li> <select name='area' multiple value={model.selectedAreas} onChange={handleAreaChange} style={{ width: '100%', height: '300px' }}> 
           {
           areas.map((group) => (
           <optgroup key={group.label} label={group.label}>
@@ -331,19 +334,19 @@ const Profile = () => {
           
           </select>  </li> </ul>
 
-          <ul> <li> Call Type </li> <li> <select name='gender' multiple value={model.location_type} onChange={handleLocationTypeChange}> 
+          <ul className={modelCss.lebeltop}> <li> Call Type (hold ctrl to select both)</li> <li> <select name='gender' multiple value={model.location_type} onChange={handleLocationTypeChange}> 
                       <option value=""> Select</option> 
                       <option selected={'inCall' === model.gender}> inCall </option> 
                       <option selected={'outCall' === model.gender}> outCall </option> 
                     </select>  </li> </ul>
 
-          <ul> <li> inCall Location </li> <li>
+          <ul> <li> inCall Location  </li> <li>
             <input type="text" onChange={handleInputChange} name="incall_location" value={model.incall_location}></input>  
                 </li> 
           </ul>
                    
-          <ul> <li> Rate per hour </li> <li>
-                <input type="text" onChange={handleInputChange} name="price" value={model.price}></input>  
+          <ul> <li> Rate per hour($) </li> <li>
+                <input type="text" onChange={handleInputChange} name="price"  value={model.price}></input>  
                     </li> 
             </ul>
 
@@ -374,7 +377,7 @@ const Profile = () => {
             </select> 
                      </li> </ul>
                      
-          <ul> <li> About </li> <li> <textarea onChange={handleInputChange} name="about" value={model.about}></textarea> </li> </ul>
+          <ul className={modelCss.lebeltop}> <li> About </li> <li> <textarea onChange={handleInputChange} rows="4" cols="50" name="about" value={model.about}></textarea> </li> </ul>
 
           <ul> <li> Profile Picture </li> <li> <img src={model.picture_url}></img>  <input type="file" id="picture_url" onChange={handleFileUpload} name="picture_url" accept="image/*" /> </li> </ul>
           

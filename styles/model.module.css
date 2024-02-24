@@ -49,6 +49,8 @@
   .servicesBack li label{ display: inline-block; font-weight: 400;  }
   .primary_area{ display: block;}
   .primary_area li{ display: block !important;}
+  .primary_area li:first-child{ width: 100% !important;}
+  .lebeltop{ display: flex;}
 
 
 

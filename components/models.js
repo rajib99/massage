@@ -113,7 +113,7 @@ function Models({ photoOnlyView, apiUrl }) {
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
       {data && data.map((model, index) => (
-        <Model photoOnlyView={photoOnlyView} date={date} time={time} key={index} {...model} />
+        <Model slug={model.slug} photoOnlyView={photoOnlyView} date={date} time={time} key={index} {...model} />
       ))}
       { data && !loading && data.length < 1 ? " No Model matched your searched criteria.  " : ""}
     </div>

@@ -96,6 +96,7 @@ input{ display: block; }
   box-shadow: 0 0 10px #ccc;
   text-align: center;
   margin-left: 20px;
+  height: fit-content;
 }
 
 .date-changer{ font-size: 25px; }
@@ -234,11 +235,21 @@ input[type="submit"]:hover {
   padding: 16px;
   margin-bottom: 16px;
   position: absolute;
-  background: rgb(217 0 133 / 50%);
+  background: rgb(217 0 133 / 100%);
   z-index: 9;
   margin-top: 60px;
   max-height: 300px;
   overflow: scroll;
+}
+.close{
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: #c8c8c8;
+}
+.close:hover{
+  color: #fff;
+  cursor: pointer;
 }
 
 .mega-menu-column {
@@ -404,17 +415,17 @@ select {
 .locarr{
   float: right;
   position: relative;
-  top: 7px;
+  top: 8px;
   right: -5px;
   width: 14px;
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 .react-datepicker-wrapper input::placeholder {
   color: #000; /* Change the color to your desired color */
 }
 
-.home-filter-params{ float: left; }
+.home-filter-params{ margin-top: 10px; }
 .home-filter-cards{ clear: both; }
 .viewbyicon{ margin-top: 18px; }
 .viewby{ border: 1px solid #ccc; border-radius: 10px; padding: 0 10px 10px 10px; }
@@ -470,8 +481,16 @@ select {
   }
 }
 
-
-
+.avg{ border: 1px solid #ccc; padding: 5px 15px; margin-top: 30px; }
+.reviewNumber div{ display: flex; }
+.reviewNumber img{ margin:5px; width: 20px; }
+.reviewText{ margin-top: 0; }
+.customer-name{ margin-bottom: 0; }
+.reviews-cnt{ padding-right: 40px; }
+.registration-page{ display: flex; padding: 20px;
+  background: #f4f4f4;
+  border-radius: 20px; }
+.login-cnt{ padding: 20px; background-color: #f6b1d6; border-radius: 10px; height: fit-content; margin-top: 50px; width: 35%; }
 
 
 
