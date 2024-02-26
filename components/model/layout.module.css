@@ -3,6 +3,9 @@
     padding: 0 1rem;
     margin: 3rem auto 6rem;
   }
+  .containerAvail{
+    max-width: 100%;
+  }
   
   .header {
     display: flex;

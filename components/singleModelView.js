@@ -10,7 +10,7 @@ function SingleModelView(model) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   //console.log('sssss', model, model[0].name);
   return (
-    <div className='col2'>
+    <div className='col2 photobg'>
       <div className='modelSingel'>  
 
       

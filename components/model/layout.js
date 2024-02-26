@@ -8,9 +8,9 @@ import Link from 'next/link';
 const name = 'Massage at Home';
 export const siteTitle = 'Muew Muew site title';
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, home, availability }) {
   return (
-    <div className={styles.container}>
+    <div className={availability ? styles.container: styles.containerAvail }>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta

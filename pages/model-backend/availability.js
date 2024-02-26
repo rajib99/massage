@@ -21,6 +21,29 @@ const Availability = () => {
     modelId: '',
     availability: null,
   });
+
+
+  const [unavailable, setunavailable] = useState('');
+
+  const [unavailSubmitData, setUnavailSubmitData] = useState({
+    modelId: '',
+    availability: null,
+  });
+
+  const [formDataWeekSubmit, setformDataWeekSubmit] = useState({
+    modelId: '',
+    availability: null,
+  });
+
+  const [weeeklyAvailData, setWeeeklyAvailData] = useState({
+    everydayStart: '',
+    everydayEnd: '',
+    excludeEvery1: '',
+    excludeEvery2: '',
+    excludeFutureDate: null,
+    excludeFutureRangeFrom: null,
+    excludeFutureRangeTo: null,
+  });
   const [id, setId] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -28,6 +51,11 @@ const Availability = () => {
   const [availArr, setAvailArr] = useState([]);
   const [loading, setLoading] = useState(null);
   const [isUpdate, setIsUpdate] = useState(false);
+  const [excludespecificdate, setExcludespecificdate] = useState(null);
+  const [message, setMessage] = useState('');
+  const [unavailMessage, setUnavailMessage] = useState('');
+  
+  
   const [error, setError] = useState(null);
   let handleColor = (time) => {
     return time.getHours() > 12 ? "text-success" : "text-error";
@@ -56,7 +84,33 @@ const Availability = () => {
   
     return format.replace(/(yyyy|MM|dd|HH|mm|ss)/g, (matched) => formatMapping[matched]);
   }
+
+
+  const handleUncertainChange = (e) => {
+    if(e.target.value == "yes"){
+      setunavailable('');
+    }else{
+      setunavailable('yes');
+    }
+    
+  };
+
+  const handleWeeklyChange = (e) => {
+    setWeeeklyAvailData({
+      ...weeeklyAvailData,
+      [e.target.name]: e.target.value
+    });
+  };
   
+
+  const handleChange = (e) => {
+    setExcludespecificdate(e.target.value);
+    // setFormData({
+    //   ...formData,
+    //   [e.target.name]: e.target.value
+    // });
+  };
+
   // // Example usage:
   // const inputDateString = 'Fri Apr 07 2023 03:30:00';
   // // const outputFormat = 'dd-MM-yyyy HH:mm:ss';
@@ -202,6 +256,54 @@ console.log('Timestamp in EST timezone:', timestamp);
     
   };
 
+
+  
+
+  const saveUnavailablity = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('weeklydata', unavailable)
+      setUnavailMessage("Saving.....");
+      const modelid = localStorage.getItem("token");
+      unavailSubmitData.modelId = modelid;
+      unavailSubmitData.availability = JSON.stringify(unavailable);
+      console.log('to send unavail', unavailSubmitData);
+      const response = await axios.post('https://spagram.com/api/update-uncertain-unavailability.php', unavailSubmitData);
+      console.log('rest', response.data);
+      if(response.data == '1') {
+      setUnavailMessage(" Uncertain unavailability saved.");
+      }else{
+        setError('Uncertain unavailability could not saved. Please contact admin');
+      }
+  
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+  const saveWeeklyData = async (e) => {
+    e.preventDefault();
+    try {
+      console.log('weeklydata', weeeklyAvailData)
+      setMessage("Saving.....");
+      const modelid = localStorage.getItem("token");
+      formDataWeekSubmit.modelId = modelid;
+      formDataWeekSubmit.availability = JSON.stringify(weeeklyAvailData);
+      const response = await axios.post('https://spagram.com/api/update-weekly-avail-time.php', formDataWeekSubmit);
+      console.log('rest', response.data);
+      if(response.data == '1') {
+      setMessage("Weekly changes are successfully saved.");
+           
+      }else{
+        setError('Email/Password do not match. Please try again!');
+      }
+  
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // useEffect(() => {
   //   // call your function here
   //   handleAvaiability();
@@ -209,6 +311,7 @@ console.log('Timestamp in EST timezone:', timestamp);
 
   useEffect(() => {
     const modelid = localStorage.getItem("token");
+    setExcludespecificdate("2024-02-19");
     setId(modelid);
     let url = "https://spagram.com/api/single-model.php?id=" + id;
     
@@ -222,6 +325,10 @@ console.log('Timestamp in EST timezone:', timestamp);
           // setModel({availability: result.availability })
             if(result.availability != null){
               setAvailArr(result.availability)
+              setWeeeklyAvailData(result.availableweekly)
+              setunavailable(result.unavailable)
+              console.log('hello', result.availableweekly, result.unavailable );
+              
             }
           
           
@@ -249,56 +356,76 @@ console.log('Timestamp in EST timezone:', timestamp);
       </Head>
       
       <h2> My Availability </h2>
-      <div> 
-      <ul className={availHeaderClass}> <li className={modelCss.timeList}> Start </li> <li className={modelCss.timeList}>End</li> </ul> 
-        {
-          availArr && availArr.map( avail => (
-            <ul className={modelCss.availList} key={avail.id}> 
-              <li className={modelCss.timeList}> {getTimefromTS(avail.start)} </li> 
-              <li className={modelCss.timeList}>{getTimefromTS(avail.end)}</li> 
-              <li className={modelCss.timeList}> <button onClick={ () => removeTime(avail.id, this)}> Delete </button> </li> 
-            </ul> 
-          ))
-        }
+      <form className={modelCss.unavailForm} onSubmit={saveUnavailablity}>  <div className={modelCss.unavailable}> <input type="checkbox" name="unavailable" checked={'yes' == unavailable}  value={unavailable} onChange={handleUncertainChange} id="unavailable" /> <label for="unavailable"> Make me Unavailable for a uncertain period of time  </label> </div>  <input className={modelCss.weeklysavebtn} type="submit" value="Save" /> <p className={modelCss.message}>  {unavailMessage} </p> </form> 
+      <div class={modelCss.daily}>
+        <form onSubmit={saveWeeklyData}> 
+        
+        <strong> If your are almost everyday available </strong>
+        <p> Everyday from (Weekly) <select className={modelCss.everydayStart} name="everydayStart" onChange={handleWeeklyChange} ><option>Select</option> <option selected={'9 am' === weeeklyAvailData.everydayStart}>9 am</option><option selected={'10 am' === weeeklyAvailData.everydayStart}>10 am</option><option selected={'11 am' === weeeklyAvailData.everydayStart}>11 am</option><option selected={'12 pm' === weeeklyAvailData.everydayStart}>12 pm</option><option selected={'1 pm' === weeeklyAvailData.everydayStart}>1 pm</option><option selected={'2 pm' === weeeklyAvailData.everydayStart}>2 pm</option><option selected={'3 pm' === weeeklyAvailData.everydayStart}>3 pm</option><option selected={'4 pm' === weeeklyAvailData.everydayStart}>4 pm</option><option selected={'5 pm' === weeeklyAvailData.everydayStart}>5 pm</option><option selected={'6 pm' === weeeklyAvailData.everydayStart}>6 pm</option><option selected={'7 pm' === weeeklyAvailData.everydayStart}>7 pm</option><option selected={'8 pm' === weeeklyAvailData.everydayStart}>8 pm</option><option selected={'9 pm' === weeeklyAvailData.everydayStart}>9 pm</option><option selected={'10 pm' === weeeklyAvailData.everydayStart}>10 pm</option><option selected={'11 pm' === weeeklyAvailData.everydayStart}>11 pm</option><option selected={'12 am' === weeeklyAvailData.everydayStart}>12 am</option><option selected={'1 am' === weeeklyAvailData.everydayStart}>1 am</option><option selected={'2 am' === weeeklyAvailData.everydayStart}>2 am</option><option selected={'3 am' === weeeklyAvailData.everydayStart}>3 am</option><option selected={'4 am' === weeeklyAvailData.everydayStart}>4 am</option><option selected={'5 am' === weeeklyAvailData.everydayStart}>5 am</option><option selected={'6 am' === weeeklyAvailData.everydayStart}>6 am</option><option selected={'7 am' === weeeklyAvailData.everydayStart}>7 am</option><option selected={'8 am' === weeeklyAvailData.everydayStart}>8 am</option> </select>  
+        to  <select className={modelCss.everydayStart}  name="everydayEnd" onChange={handleWeeklyChange}> <option>Select</option> <option selected={'9 am' === weeeklyAvailData.everydayEnd}>9 am</option><option selected={'10 am' === weeeklyAvailData.everydayEnd}>10 am</option><option selected={'11 am' === weeeklyAvailData.everydayEnd}>11 am</option><option selected={'12 pm' === weeeklyAvailData.everydayEnd}>12 pm</option><option selected={'1 pm' === weeeklyAvailData.everydayEnd}>1 pm</option><option selected={'2 pm' === weeeklyAvailData.everydayEnd}>2 pm</option><option selected={'3 pm' === weeeklyAvailData.everydayEnd}>3 pm</option><option selected={'4 pm' === weeeklyAvailData.everydayEnd}>4 pm</option><option selected={'5 pm' === weeeklyAvailData.everydayEnd}>5 pm</option><option selected={'6 pm' === weeeklyAvailData.everydayEnd}>6 pm</option><option selected={'7 pm' === weeeklyAvailData.everydayEnd}>7 pm</option><option selected={'8 pm' === weeeklyAvailData.everydayEnd}>8 pm</option><option selected={'9 pm' === weeeklyAvailData.everydayEnd}>9 pm</option><option selected={'10 pm' === weeeklyAvailData.everydayEnd}>10 pm</option><option selected={'11 pm' === weeeklyAvailData.everydayEnd}>11 pm</option><option selected={'12 am' === weeeklyAvailData.everydayEnd}>12 am</option><option selected={'1 am' === weeeklyAvailData.everydayEnd}>1 am</option><option selected={'2 am' === weeeklyAvailData.everydayEnd}>2 am</option><option selected={'3 am' === weeeklyAvailData.everydayEnd}>3 am</option><option selected={'4 am' === weeeklyAvailData.everydayEnd}>4 am</option><option selected={'5 am' === weeeklyAvailData.everydayEnd}>5 am</option><option selected={'6 am' === weeeklyAvailData.everydayEnd}>6 am</option><option selected={'7 am' === weeeklyAvailData.everydayEnd}>7 am</option><option selected={'8 am' === weeeklyAvailData.everydayEnd}>8 am</option>  </select>   </p>
+        <p> Exclude Every (Weekly)  <select className={modelCss.everydayStart} name="excludeEvery1" onChange={handleWeeklyChange}><option>Select</option><option selected={'Saturday' === weeeklyAvailData.excludeEvery1}>Saturday</option><option selected={'Sunday' === weeeklyAvailData.excludeEvery1}>Sunday</option><option selected={'Monday' === weeeklyAvailData.excludeEvery1}>Monday</option><option selected={'Tuesday' === weeeklyAvailData.excludeEvery1}>Tuesday</option><option selected={'Wednessday' === weeeklyAvailData.excludeEvery1}>Wednessday</option><option selected={'Thursday' === weeeklyAvailData.excludeEvery1}> Thursday</option><option selected={'Friday' === weeeklyAvailData.excludeEvery1}>Friday</option> </select> </p>
+        <p> Exclude Every (Weekly) <select className={modelCss.everydayStart} name="excludeEvery2" onChange={handleWeeklyChange}> <option>Select</option><option selected={'Saturday' === weeeklyAvailData.excludeEvery2}>Saturday</option><option selected={'Sunday' === weeeklyAvailData.excludeEvery2}>Sunday</option><option selected={'Monday' === weeeklyAvailData.excludeEvery2}>Monday</option><option selected={'Tuesday' === weeeklyAvailData.excludeEvery2}>Tuesday</option><option selected={'Wednessday' === weeeklyAvailData.excludeEvery2}>Wednessday</option><option selected={'Thursday' === weeeklyAvailData.excludeEvery2}> Thursday</option><option selected={'Friday' === weeeklyAvailData.excludeEvery2}>Friday</option> </select> </p>
+        <p> Exclude a future date <input name="excludeFutureDate" type="date" value={weeeklyAvailData.excludeFutureDate} onChange={handleWeeklyChange} /> </p>
+        <p> Exclude a future date range; from: <input name="excludeFutureRangeFrom" type="date" value={weeeklyAvailData.excludeFutureRangeFrom} onChange={handleWeeklyChange} /> to <input name="excludeFutureRangeTo" type="date"  value={weeeklyAvailData.excludeFutureRangeTo} onChange={handleWeeklyChange} />  </p>
+        <input className={modelCss.weeklysavebtn} type='submit' value="Save Changes" />
+        <p> {message} </p>
+        </form>
+
       </div>
+      <div class={modelCss.sometimes}>
+        <div>
+        <strong> If your are sometimes available </strong> 
+        <ul className={availHeaderClass}> <li className={modelCss.timeList}> Start </li> <li className={modelCss.timeList}>End</li> </ul> 
+          {
+            availArr && availArr.map( avail => (
+              <ul className={modelCss.availList} key={avail.id}> 
+                <li className={modelCss.timeList}> {getTimefromTS(avail.start)} </li> 
+                <li className={modelCss.timeList}>{getTimefromTS(avail.end)}</li> 
+                <li className={modelCss.timeList}> <button onClick={ () => removeTime(avail.id, this)}> Delete </button> </li> 
+              </ul> 
+            ))
+          }
+        </div>
 
-      
-      <form onSubmit={handleAvaiability}>
-        <div className={modelCss.availBox}>
-          <div className='timeBox'> 
-              <div>Start Date</div>
-              <DatePicker
-              showTimeSelect
-              timeFormat="HH:mm"
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              timeClassName={handleColor}
-              timeIntervals={60}
-              dateFormat="yyyy-MM-dd HH:mm"
-              />  
-          </div>
+        
+        <form onSubmit={handleAvaiability}>
+          <div className={modelCss.availBox}>
+            <div className='timeBox'> 
+                <div>Start Date</div>
+                <DatePicker
+                showTimeSelect
+                timeFormat="HH:mm"
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                timeClassName={handleColor}
+                timeIntervals={60}
+                dateFormat="yyyy-MM-dd HH:mm"
+                />  
+            </div>
 
-          <div className={modelCss.timeBox2}> 
-              <div>End Date</div>
-              <DatePicker
-              showTimeSelect
-              timeFormat="HH:mm"
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              timeClassName={handleColor}
-              timeIntervals={60}
-              dateFormat="yyyy-MM-dd HH:mm"
-              />  
-          </div>
+            <div className={modelCss.timeBox2}> 
+                <div>End Date</div>
+                <DatePicker
+                showTimeSelect
+                timeFormat="HH:mm"
+                selected={endDate}
+                onChange={(date) => setEndDate(date)}
+                timeClassName={handleColor}
+                timeIntervals={60}
+                dateFormat="yyyy-MM-dd HH:mm"
+                />  
+            </div>
+            
+            
+            
+            <div class="submitbox"> 
+            <button type='submit' className={modelCss.save} onClick={addTime}> Add </button>
+                  { loading? <img width="30px" src={loading_url} />: ' ' } 
+            </div>
           
-          
-          
-          <div class="submitbox"> 
-          <button type='submit' className={modelCss.save} onClick={addTime}> Add </button>
-                 { loading? <img width="30px" src={loading_url} />: ' ' } 
-          </div>
       </div>
     </form>
+    </div>
 
     </Layout>
   );

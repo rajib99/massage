@@ -545,7 +545,7 @@ function Booking() {
             { !isTimeSelected? 
               <div className='date-selector'> 
               <h2 className='mktitle'> Make an Appointment with { singleModel && singleModel[0].name} </h2>
-              <p className='smallfont'> We will charge you ${ singleModel && get10percent(singleModel[0].price) } (10% of ${singleModel && singleModel[0].price})  </p>
+              <p className='smallfont'> Booking charge ${ singleModel && get10percent(singleModel[0].price) } (10% of ${singleModel && singleModel[0].price})  </p>
               <p> Select Call type </p>
                 { singleModel && location_selector() }
                 <div className='date-changer'>

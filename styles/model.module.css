@@ -52,6 +52,28 @@
   .primary_area li:first-child{ width: 100% !important;}
   .lebeltop{ display: flex;}
 
+  .unavailable{  padding: 5px; background-color: antiquewhite; display: flex; }
+  .unavailForm{  background-color: antiquewhite; ; padding: 20px; }
+  .unavailable label{ margin-top: 10px; }
+  .daily{background: #81c4ff;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .daily p{ display: flex; gap: 10px; }
+  .sometimes{ background: #b1f4de;
+    margin-top: 30px;
+    padding: 20px;
+  }
+.everydayStart{ width: 100px; }
+.weeklysavebtn{
+  width: 160px !important;
+  text-align: center;
+  margin: auto;
+  padding: 14px 20px !important;
+  background-color: #F02698 !important;
+}
+.message{ text-align: center;}
+
 
 
   @media only screen and (max-width: 1000px) {

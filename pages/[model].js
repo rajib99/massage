@@ -42,8 +42,10 @@ function Booking() {
     const [inCallSelected, setInCallSelected] = useState(false);
     const [outCallSelected, setOutCallSelected] = useState(false);
     const [outCallLocation, setOutCallLocation] = useState(false);
+    const [inCallLocation, setInCallLocation] = useState(false);
     const [showSaveCard, setShowSaveCard] = useState(false);
     const [showSuccessPage, setShowSuccessPage] = useState(false);
+    const [tdate, setTdate] = useState(null);
     
     
     
@@ -109,7 +111,6 @@ function Booking() {
     const router = useRouter();
     
     let singleApiUrl = "";
-    let tdate = "";
 
     // const modId = singleApiUrl.split("=")[1];
     // console.log('urs', modelID);
@@ -161,7 +162,8 @@ function Booking() {
       return(
         <div className='calltypeCnt'>
             <div className='calltypes'> { locArr.length < 2 ? <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option></select> : <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option><option>{locArr[1]}</option></select> }  </div> 
-          <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' } </div>
+          <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : '' : '' } </div>
+          <div> { selectedCallType ?  selectedCallType == "outCall" ?  <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' : '' } </div>
           <div>  </div>
         </div>
       )
@@ -464,7 +466,9 @@ function Booking() {
     
     singleApiUrl = localStorage.getItem('singleModelApiUrl');
     const urlParams = new URLSearchParams(singleApiUrl);
-    tdate = urlParams.get('date');
+    let tempdate = urlParams.get('date');
+    setTdate(tempdate);
+    console.log("ap url", singleApiUrl);
 
     userLogin();
     // const { data } = 
@@ -529,6 +533,7 @@ function Booking() {
        
             <div className='modelInfoCnt'> 
                 <h1>   </h1>
+                <h1>   </h1>
 
 
                 {loading && <div>Loading...</div>}
@@ -548,7 +553,12 @@ function Booking() {
               <h2 className='mktitle'> Make an Appointment with { singleModel && singleModel[0].name} </h2>
               <p className='smallfont'> We will charge you ${ singleModel && get10percent(singleModel[0].price) } (10% of ${singleModel && singleModel[0].price})  </p>
               <p> Select Call type </p>
-                { singleModel && location_selector() }
+                { singleModel && location_selector() 
+                  
+                 
+                  
+                
+                }
                 <div className='date-changer'>
                   <a onClick={()=>goPrevDay(isDateSelected? isDateSelected : tdate)}> Back &nbsp;&nbsp; </a>
                     <strong>  {isDateSelected? isDateSelected : tdate} </strong> 
