@@ -41,7 +41,7 @@ const MyPaymentForm = (params) => (
         }),
       });
       console.log(await response.json());
-      window.location.href = "/cardsaved";
+      // window.location.href = "/cardsaved";
       // console.log(await response);
     }}
     /**

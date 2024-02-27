@@ -277,7 +277,7 @@ const Profile = () => {
         <form onSubmit={handleModelUpdate}>
           <ul> <li> Profile Url </li> <li> <input type="text" onChange={handleInputChange} name="slug" value={model.slug}></input> </li> </ul>
           <ul> <li> Name </li> <li> <input type="text" onChange={handleInputChange} name="name" value={model.name}></input> </li> </ul>
-          <ul> <li> Phone </li> <li> <input type="text" onChange={handleInputChange} name="phone" value={model.phone}></input> </li> </ul>
+          <ul className={modelCss.primary_area}> <li> Phone (Please don't add country code and also don't include any whitespace. ) </li> <li> <input type="text" onChange={handleInputChange} name="phone" value={model.phone}></input> </li> </ul>
           <ul> <li> Email </li> <li> <input type="text" onChange={handleInputChange} name="email" value={model.email}></input> </li> </ul>
           <ul> <li> Gender </li> <li> <select name='gender' onChange={handleInputChange}> 
                       <option value=""> Select</option> 
