@@ -5,11 +5,17 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import{ CURRENT_URL } from '../components/config';
+import dynamic from 'next/dynamic'
 
 const name = 'Massage at Home';
 export const siteTitle = 'Tristate Massage';
 
 export default function Layout({ children, home }) {
+
+  const CrispWithNoSSR = dynamic(
+    () => import('../components/crisp')
+  )
+
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -23,6 +29,7 @@ export default function Layout({ children, home }) {
   }, []);
   return (
     <div className={styles.container}>
+      <CrispWithNoSSR />
       <Head>
 
         <link rel="icon" href="/favicon.ico" />

@@ -24,6 +24,7 @@ function Booking() {
     const [orderData, setOrderData] = useState({customer_id: '', model_id: '', service_address: '', service_type: '', service_time: '', amount_received: '', cardid:'', status:''});  
 
     
+    const [isCalltypeSelected, setIsCalltypeSelected] = useState(false);
     const [isTimeSelected, setIsTimeSelected] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
     const [succMessage, setSuccMessage] = useState(null);
@@ -444,7 +445,7 @@ function Booking() {
           <label for="phone">Phone: (Don't add country code +1, don't add white space ) </label>
           <input type="tel" id="phone" onChange={handleChange} name="phone" value={formData.phone}/>
 
-          <label for="address">Full Address:</label>
+          <label for="address"> Address:</label>
           <textarea id="address" onChange={handleChange} name="address" value={formData.address}></textarea>
           <label for="city">City:</label>
           <input type="text" id="city" onChange={handleChange} name="city" value={formData.city} />
