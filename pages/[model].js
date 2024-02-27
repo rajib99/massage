@@ -24,7 +24,7 @@ function Booking() {
     const [orderData, setOrderData] = useState({customer_id: '', model_id: '', service_address: '', service_type: '', service_time: '', amount_received: '', cardid:'', status:''});  
 
     
-    const [isCalltypeSelected, setIsCalltypeSelected] = useState(false);
+    const [isCalltypeSelected, setIsCalltypeSelected] = useState(true);
     const [isTimeSelected, setIsTimeSelected] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
     const [succMessage, setSuccMessage] = useState(null);
@@ -162,9 +162,9 @@ function Booking() {
       const locArr = loc_type.split(',');
       return(
         <div className='calltypeCnt'>
-            <div className='calltypes'> { locArr.length < 2 ? <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option></select> : <select onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option><option>{locArr[1]}</option></select> }  </div> 
+            <div className='calltypes'> { locArr.length < 2 ? <select class={isCalltypeSelected ? ' ' : 'warn'} onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option></select> : <select class={isCalltypeSelected ? ' ' : 'warn'} onChange={calltypeSelector}><option>inCall/outCall</option><option>{locArr[0]}</option><option>{locArr[1]}</option></select> }  </div> 
           <div> { selectedCallType ?  selectedCallType == "inCall"? ' Incall Location: ' + singleModel[0].incall_location  : '' : '' } </div>
-          <div> { selectedCallType ?  selectedCallType == "outCall" ?  <div> <input type='text' onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' : '' } </div>
+          <div> { selectedCallType ?  selectedCallType == "outCall" ?  <div> <input type='text' class={isCalltypeSelected ? ' ' : 'warn'} onChange={handleOutcallLocation} placeholder='Enter Outcall Location' name='outcall_location' /> </div> : '' : '' } </div>
           <div>  </div>
         </div>
       )
@@ -418,16 +418,37 @@ function Booking() {
   })
 
   const selectTime = (hour) => {
-    setIsTimeSelected(hour)
-    const amount = get10percent(singleModel[0].price);
-    let selected_date = '';
-    if(isDateSelected != ''){
-      selected_date = isDateSelected;
-    }else{
-      selected_date = getTodayDate();
+    //check if call type is selected and address entered if outcall selected. 
+    console.log('call type', outCallLocation);
+    let isAddressOk = true;
+    
+    if(selectedCallType == undefined || selectedCallType == "inCall/outCall"){
+      isAddressOk = false;
+      setIsCalltypeSelected(false);
     }
-    console.log('todays date',  getTodayDate());
-    setOrderData({...orderData, service_time: selected_date + ', ' + hour, amount_received: amount, cardid: '', status: 'Initiated'});
+    if(selectedCallType == "outCall"){
+      if(outCallLocation == false){
+        isAddressOk = false;
+        setIsCalltypeSelected(false);
+      }
+    }
+
+
+    if(isAddressOk){
+      setIsTimeSelected(hour)
+      const amount = get10percent(singleModel[0].price);
+      let selected_date = '';
+      if(isDateSelected != ''){
+        selected_date = isDateSelected;
+      }else{
+        selected_date = getTodayDate();
+      }
+      console.log('todays date',  getTodayDate());
+      setOrderData({...orderData, service_time: selected_date + ', ' + hour, amount_received: amount, cardid: '', status: 'Initiated'});
+    
+    }
+   
+
     
   }
 
@@ -555,7 +576,7 @@ function Booking() {
               <div className='date-selector'> 
               <h2 className='mktitle'> Make an Appointment with { singleModel && singleModel[0].name} </h2>
               <p className='smallfont'> Booking fee is ${ singleModel && get10percent(singleModel[0].price) } (10% of ${singleModel && singleModel[0].price})  </p>
-              <p> Select Call type </p>
+              <p class={isCalltypeSelected? ' ' : 'warnlable'}> Select Call type </p>
                 { singleModel && location_selector() 
                   
                  
