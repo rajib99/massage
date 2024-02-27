@@ -225,7 +225,7 @@ function Booking() {
       return(
         <div className='registration-container'>
           <h3> Enter your card details </h3>
-          <p> We will save your card in a Square secure server and charge you after the model accept your request </p>
+          <p> We will save your card in a Square secure server and charge you after the model accept your request. Please use the same zip you entered you zip field of previous step.  </p>
           <SquareForm customer_id={orderData.customer_id} model_id={orderData.model_id} service_address={orderData.service_address} service_type={orderData.service_type} service_time={orderData.service_time}  price={orderData.amount_received}  showSuccessPage={showSuccessPage} />
         </div>
       );
@@ -444,7 +444,7 @@ function Booking() {
           <label for="phone">Phone: (Don't add country code +1, don't add white space ) </label>
           <input type="tel" id="phone" onChange={handleChange} name="phone" value={formData.phone}/>
 
-          <label for="address">Address:</label>
+          <label for="address">Full Address:</label>
           <textarea id="address" onChange={handleChange} name="address" value={formData.address}></textarea>
           <label for="city">City:</label>
           <input type="text" id="city" onChange={handleChange} name="city" value={formData.city} />
