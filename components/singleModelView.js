@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import utilStyles from  '../styles/utils.module.css';
 import ModelReiview from '../components/modelReview';
+import GalleryImages from '../components/galleryImages';
 import ReactSimplyCarousel from 'react-simply-carousel';
 
 
@@ -10,6 +11,7 @@ function SingleModelView(model) {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   //console.log('sssss', model, model[0].name);
   return (
+    <> 
     <div className='col2 photobg'>
       <div className='modelSingel'>  
 
@@ -39,8 +41,9 @@ function SingleModelView(model) {
 
 
       </div>
-      
     </div>
+     <GalleryImages gs={model[0].picture_urls} />
+    </>
   );
 }
 

@@ -523,3 +523,4 @@ select {
 }
 
 
+.galleryImgs{ margin: 20px auto; display: flex; gap: 20px; align-items: self-end; }

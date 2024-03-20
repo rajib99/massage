@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Layout, { siteTitle } from '../../components/model/layout';
+import GalleryImages from '../../components/galleryImages';
+
 import modelCss from '../../styles/model.module.css';
 import ServicePricesUI from '../../components/servicePricesUI';
 import withAuth from "../../components/admin/withAuth";
 import Ethnicities from "../../components/data/ethnicities.js";
 import Services  from "../../components/data/services.js";
 import axios from 'axios';
+
 
 
 //name,phone,email,gender,height,color,about,service_area,servicePrices,image,
@@ -54,6 +57,7 @@ const Profile = () => {
     service_area: '',
     servicePrices: null,
     picture_url: '',
+    picture_urls: '',
     status: ''
   });
 
@@ -122,6 +126,8 @@ const Profile = () => {
 
   };
 
+
+
   
 
   const handleLocationTypeChange = (event) => {
@@ -138,18 +144,47 @@ const Profile = () => {
 
 
   const handleFileUpload = (e) => {
-
     let files = e.target.files;
     let fileReader = new FileReader();
     fileReader.readAsDataURL(files[0]);
-
       fileReader.onload = (event) => {
           // setFile(event.target.result);
           setModel({...model, picture_url:event.target.result })
+
       }
+  };
 
 
-    
+  const handleMultiFileUpload = (e) => {
+    let files = e.target.files;
+    let fileReader = new FileReader();
+    const filesArray = Array.from(files);
+    const base64Array = [];
+
+    // Define a function to handle reading each file
+    const readNextFile = (index) => {
+      if (index < filesArray.length) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(filesArray[index]);
+        
+        fileReader.onload = (event) => {
+          // Add the base64 result to the array
+          base64Array.push(event.target.result);
+
+          // Read the next file
+          readNextFile(index + 1);
+        };
+      } else {
+        // All files have been read, join the array into a single string
+        const commaSeparatedBase64 = base64Array.join('||');
+        
+        // Assuming setModel is a function to update the state
+        setModel({ ...model, picture_urls: commaSeparatedBase64 });
+      }
+    };
+
+    // Start reading the first file
+    readNextFile(0);
   };
 
   const handleModelUpdate = async (e) => {
@@ -245,12 +280,13 @@ const Profile = () => {
           setSelectedServices(servicesArr);
           setModel({slug: result.slug, name: result.name, phone: result.phone, email: result.email, gender: result.gender, selectedAreas_primary: areaArr_primary, selectedAreas: areaArr, location_type: locationTypeArr, incall_location: result.incall_location,  price: result.price, ethnicity: result.ethnicity, 
             age: result.age, height: result.height, color: result.color, about: result.about, service_area_primary: result.service_area_primary, service_area: result.service_area, 
-            servicePrices: result.services_prices, picture_url: result.picture_url, status: result.status })
+            servicePrices: result.services_prices, picture_url: result.picture_url, picture_urls: result.picture_urls, status: result.status })
 
             
             setServPri(result.services_prices)
           
             setLoading(false);
+            console.log('retrieved model', model);
           setError(null);
         } catch (err) {
           setError(err.message);
@@ -379,7 +415,8 @@ const Profile = () => {
                      
           <ul className={modelCss.lebeltop}> <li> About </li> <li> <textarea onChange={handleInputChange} rows="4" cols="50" name="about" value={model.about}></textarea> </li> </ul>
 
-          <ul> <li> Profile Picture </li> <li> <img src={model.picture_url}></img>  <input type="file" id="picture_url" onChange={handleFileUpload} name="picture_url" accept="image/*" /> </li> </ul>
+          <ul> <li> Profile Picture </li> <li> <img src={model.picture_url} /> <input type="file" id="picture_url" onChange={handleFileUpload} name="picture_url" accept="image/*" /> </li> </ul>
+          <ul> <li> Upload gallery Pictures </li> <li> <GalleryImages gs={ model && model.picture_urls} />  <input type="file" id="picture_urls" onChange={handleMultiFileUpload} name="picture_urls" accept="image/*" multiple /> </li> </ul>
           
             {/* {model.servicePrices.split(",").map((spString) => ( <ServicePricesUI {...spString}  /> ) )} */}
           {/* {console.log('sd', typeof servp)} */}

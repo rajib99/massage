@@ -23,24 +23,13 @@ function App() {
     setServPri(values);
   };
 
-  return (
-    <div>
-      {servPri.map((sp, index) => (
-        <div key={sp.id}>
-          <input
-            value={sp.name}
-            onChange={(event) => handleInputChange(index, 'name', event.target.value)}
-          />
-          <input
-            value={sp.price}
-            onChange={(event) => handleInputChange(index, 'price', parseFloat(event.target.value))}
-          />
-          <button onClick={() => removeInput(index)}>Remove</button>
-        </div>
-      ))}
-      <button onClick={addInput}>Add Service Price</button>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace('/.well-known' + router.asPath);
+  }, []);
+
+  return null;
 }
 
 export default App;
