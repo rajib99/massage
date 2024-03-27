@@ -572,7 +572,7 @@ function Booking() {
                 {singleModel && <SingleModelView  {...singleModel}  />  }    
                 {/* {singleModel && showSingleModelAndinCall()  }     */}
                 {/* { singleModel && callDefaultFunctions() }     */}
-                <div class="gallery"> <h1> Hell </h1> </div>
+                <div class="gallery"> <h1>  </h1> </div>
                 <ModelReview />
             </div>
             { !isTimeSelected? 

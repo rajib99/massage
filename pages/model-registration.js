@@ -67,6 +67,7 @@ function ModelRegistration() {
       setLoading(true);
       console.log("endpoint hit")
       const response = await axios.post('https://spagram.com/api/create-model-quick.php', formData);
+      console.log('response', response)
       setFormData(null);
       console.log('insert model', response.data.message);
       const { token } = response.data;

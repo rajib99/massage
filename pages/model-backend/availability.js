@@ -313,7 +313,7 @@ console.log('Timestamp in EST timezone:', timestamp);
     const modelid = localStorage.getItem("token");
     setExcludespecificdate("2024-02-19");
     setId(modelid);
-    let url = "https://spagram.com/api/single-model.php?id=" + id;
+    let url = "https://spagram.com/api/single-model.php?id=" + localStorage.getItem("token");
     
     const getData = async (id) => {
         try {
@@ -323,13 +323,19 @@ console.log('Timestamp in EST timezone:', timestamp);
           // setModel({...model, phone: '89999'})
           
           // setModel({availability: result.availability })
+          console.log('received data', url, result);
             if(result.availability != null){
-              setAvailArr(result.availability)
-              setWeeeklyAvailData(result.availableweekly)
-              setunavailable(result.unavailable)
-              console.log('hello', result.availableweekly, result.unavailable );
-              
+              setAvailArr(result.availability)  
+              console.log('hello', result.availableweekly, result.unavailable );            
+           }
+           if(result.availableweekly != null){
+              setWeeeklyAvailData(result.availableweekly)            
+           }
+           if(result.unavailable != null){
+             setunavailable(result.unavailable)          
             }
+           
+           
           
           
             setLoading(false);
@@ -358,6 +364,9 @@ console.log('Timestamp in EST timezone:', timestamp);
       <h2> My Availability </h2>
       <form className={modelCss.unavailForm} onSubmit={saveUnavailablity}>  <div className={modelCss.unavailable}> <input type="checkbox" name="unavailable" checked={'yes' == unavailable}  value={unavailable} onChange={handleUncertainChange} id="unavailable" /> <label for="unavailable"> Make me Unavailable for a uncertain period of time  </label> </div>  <input className={modelCss.weeklysavebtn} type="submit" value="Save" /> <p className={modelCss.message}>  {unavailMessage} </p> </form> 
       <div class={modelCss.daily}>
+      
+         
+       
         <form onSubmit={saveWeeklyData}> 
         
         <strong> If your are almost everyday available </strong>
@@ -370,6 +379,7 @@ console.log('Timestamp in EST timezone:', timestamp);
         <input className={modelCss.weeklysavebtn} type='submit' value="Save Changes" />
         <p> {message} </p>
         </form>
+        
 
       </div>
       <div class={modelCss.sometimes}>

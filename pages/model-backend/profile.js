@@ -148,7 +148,7 @@ const Profile = () => {
     let fileReader = new FileReader();
     fileReader.readAsDataURL(files[0]);
       fileReader.onload = (event) => {
-          // setFile(event.target.result);
+          setFile(event.target.result);
           setModel({...model, picture_url:event.target.result })
 
       }
@@ -198,7 +198,7 @@ const Profile = () => {
       model.location_type = model.location_type.toString();
       const serviceAll = selectedServices.join(",");
       model.services = serviceAll;
-      // model.picture_url = file;
+      model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
       const response = await axios.post('https://spagram.com/api/update-model.php', model);
