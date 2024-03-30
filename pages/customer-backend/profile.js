@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const Profile = () => {
 
-  // const originalUrl = 'https://spagram.com/api/models.php';
+  // const originalUrl = 'https://api.tsm.cc/v1/models.php';
   // const [baseUrl, setBaseUrl] = useState(originalUrl);
   // const [servPri, setServPri] = useState([
   //   { id: 1, name: 'Service 1', Price: '10' },
@@ -65,7 +65,7 @@ const Profile = () => {
       // model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
-      const response = await axios.post('https://spagram.com/api/update-customer.php', model);
+      const response = await axios.post('https://api.tsm.cc/v1/update-customer.php', model);
       console.log('post reply', response.data, response.status)
       response.data == "1" ? setMessage('Update successful') : setMessage('Something is wrong! Please contact admin')
       
@@ -96,7 +96,7 @@ const Profile = () => {
     const modelid = localStorage.getItem("customertoken");
     setId(modelid);
     console.log('id', modelid);
-    let url = "https://spagram.com/api/single-customer.php?id=" + id;
+    let url = "https://api.tsm.cc/v1/single-customer.php?id=" + id;
     
     const getData = async (id) => {
         try {

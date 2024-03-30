@@ -17,7 +17,7 @@ function OrderSingle({changeOrderStatus, order}) {
     const changestats = async (status) => {
         try {
             const orderUpdate = {id: order.id, order_status: status, customer_id: order.customer_id};
-            const response = await axios.post('https://spagram.com/api/update-order.php', orderUpdate);
+            const response = await axios.post('https://api.tsm.cc/v1/update-order.php', orderUpdate);
             console.log('s response', response.data );
             changeOrderStatus(status);
   

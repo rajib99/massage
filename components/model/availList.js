@@ -13,7 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const AvailList = () => {
 
-  const originalUrl = 'https://spagram.com/api/models.php';
+  const originalUrl = 'https://api.tsm.cc/v1/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   const [startDate, setStartDate] = useState(

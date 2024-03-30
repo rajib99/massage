@@ -20,7 +20,7 @@ import SquareForm from '../components/squareform';
 
 export default function Home() {
 
-  const originalUrl = 'https://spagram.com/api/filter-models.php';
+  const originalUrl = 'https://api.tsm.cc/v1/filter-models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   // const [area, setArea] = useState('');
@@ -221,7 +221,7 @@ export default function Home() {
 
 
 
-    // axios.get('https://spagram.com/api/area.php')
+    // axios.get('https://api.tsm.cc/v1/area.php')
     //   .then(response => {
     //     setResults(response.data);
     //   })

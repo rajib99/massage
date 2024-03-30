@@ -34,7 +34,7 @@ const Orders = () => {
 
     const modelid = localStorage.getItem("token");
     setLoading(true);
-    const queryUrl = 'https://spagram.com/api/getpendingorders.php?modelid=' + modelid;
+    const queryUrl = 'https://api.tsm.cc/v1/getpendingorders.php?modelid=' + modelid;
     const getData = async () => {
         try {
           const response = await axios.get(queryUrl);
@@ -54,7 +54,7 @@ const Orders = () => {
       // let modid = singleApiUrl.split("=")[1];
 
         getData();
-  //       const availabilityUrl = 'https://spagram.com/api/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
+  //       const availabilityUrl = 'https://api.tsm.cc/v1/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
  
   }, [status]);
 

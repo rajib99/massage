@@ -17,7 +17,7 @@ function ReviewSingle() {
     // const changestats = async (status) => {
     //     try {
     //         const reviewtoUpdate = {id: reviewto.id, reviewto_status: status, customer_id: reviewto.customer_id};
-    //         const response = await axios.post('https://spagram.com/api/update-reviewto.php', reviewtoUpdate);
+    //         const response = await axios.post('https://api.tsm.cc/v1/update-reviewto.php', reviewtoUpdate);
     //         console.log('s response', response.data );
     //         changeOrderStatus(status);
   

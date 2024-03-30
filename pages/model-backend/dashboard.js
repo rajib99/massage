@@ -9,7 +9,7 @@ import withAuth from "../../components/admin/withAuth";
 
 const Dashboard = () => {
 
-  const originalUrl = 'https://spagram.com/api/models.php';
+  const originalUrl = 'https://api.tsm.cc/v1/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   const [area, setArea] = useState('');

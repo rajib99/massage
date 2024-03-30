@@ -17,7 +17,7 @@ import axios from 'axios';
 
 const Profile = () => {
 
-  // const originalUrl = 'https://spagram.com/api/models.php';
+  // const originalUrl = 'https://api.tsm.cc/v1/models.php';
   // const [baseUrl, setBaseUrl] = useState(originalUrl);
   // const [servPri, setServPri] = useState([
   //   { id: 1, name: 'Service 1', Price: '10' },
@@ -201,7 +201,7 @@ const Profile = () => {
       model.picture_url = file;
       model.servicePrices = JSON.stringify(servPri);
       console.log('model final',model);
-      const response = await axios.post('https://spagram.com/api/update-model.php', model);
+      const response = await axios.post('https://api.tsm.cc/v1/update-model.php', model);
       console.log('model update', response.data);
       setMessage('After you are done here, please go to the "Availability" tab from the left sidebar to set your available time.')
       setLoading(false)
@@ -263,7 +263,7 @@ const Profile = () => {
 
     const modelid = localStorage.getItem("token");
     setId(modelid);
-    let url = "https://spagram.com/api/single-model.php?id=" + modelid;
+    let url = "https://api.tsm.cc/v1/single-model.php?id=" + modelid;
     
     const getData = async () => {
         try {

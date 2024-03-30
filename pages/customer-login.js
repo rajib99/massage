@@ -35,7 +35,7 @@ function CustomerLogin() {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://spagram.com/api/login-customer.php', formData);
+      const response = await axios.post('https://api.tsm.cc/v1/login-customer.php', formData);
       console.log('rest', response.data);
       if(response.data.success == '1') {
             const { token } = response.data;

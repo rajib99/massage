@@ -20,7 +20,7 @@ const ImageUpload = () => {
     const formData = new FormData();
     formData.append('image', image);
 
-    fetch('https://spagram.com/api/testfileuploader.php', {
+    fetch('https://api.tsm.cc/v1/testfileuploader.php', {
       method: 'POST',
       body: formData,
     })
