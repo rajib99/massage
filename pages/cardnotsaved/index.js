@@ -21,7 +21,7 @@ function Booking() {
     // userLogin();
     // const { data } = 
     // console.log('data', data);
-    // const modelUrl = 'https://spagram.com/api/models.php' +  '?id=' + data
+    // const modelUrl = 'https://tsm.spagram.com/api/models.php' +  '?id=' + data
     const getData = async () => {
         try {
           
@@ -34,7 +34,7 @@ function Booking() {
       // let modid = singleApiUrl.split("=")[1];
 
         getData();
-  //       const availabilityUrl = 'https://spagram.com/api/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
+  //       const availabilityUrl = 'https://tsm.spagram.com/api/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
  
   });
 

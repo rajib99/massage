@@ -15,7 +15,7 @@ import axios from 'axios';
 
 const Availability = () => {
 
-  const originalUrl = 'https://spagram.com/api/models.php';
+  const originalUrl = 'https://tsm.spagram.com/api/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
   const [formData, setFormData] = useState({
     modelId: '',
@@ -239,7 +239,7 @@ console.log('Timestamp in EST timezone:', timestamp);
       const modelid = localStorage.getItem("token");
       formData.modelId = modelid;
       formData.availability = JSON.stringify(availArr);
-      const response = await axios.post('https://spagram.com/api/update-model-time.php', formData);
+      const response = await axios.post('https://tsm.spagram.com/api/update-model-time.php', formData);
       console.log('rest from php', response.data);
       setLoading(false);
 
@@ -268,7 +268,7 @@ console.log('Timestamp in EST timezone:', timestamp);
       unavailSubmitData.modelId = modelid;
       unavailSubmitData.availability = JSON.stringify(unavailable);
       console.log('to send unavail', unavailSubmitData);
-      const response = await axios.post('https://spagram.com/api/update-uncertain-unavailability.php', unavailSubmitData);
+      const response = await axios.post('https://tsm.spagram.com/api/update-uncertain-unavailability.php', unavailSubmitData);
       console.log('rest', response.data);
       if(response.data == '1') {
       setUnavailMessage(" Uncertain unavailability saved.");
@@ -290,7 +290,7 @@ console.log('Timestamp in EST timezone:', timestamp);
       const modelid = localStorage.getItem("token");
       formDataWeekSubmit.modelId = modelid;
       formDataWeekSubmit.availability = JSON.stringify(weeeklyAvailData);
-      const response = await axios.post('https://spagram.com/api/update-weekly-avail-time.php', formDataWeekSubmit);
+      const response = await axios.post('https://tsm.spagram.com/api/update-weekly-avail-time.php', formDataWeekSubmit);
       console.log('rest', response.data);
       if(response.data == '1') {
       setMessage("Weekly changes are successfully saved.");
@@ -313,7 +313,7 @@ console.log('Timestamp in EST timezone:', timestamp);
     const modelid = localStorage.getItem("token");
     setExcludespecificdate("2024-02-19");
     setId(modelid);
-    let url = "https://spagram.com/api/single-model.php?id=" + localStorage.getItem("token");
+    let url = "https://tsm.spagram.com/api/single-model.php?id=" + localStorage.getItem("token");
     
     const getData = async (id) => {
         try {

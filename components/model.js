@@ -17,7 +17,7 @@ function Model({ slug, photoOnlyView, date, time, id, picture_url, name, service
         isActive? setActive(photoOnlyView) : setActive(photoOnlyView);
     }
     const handleClick = () => {
-      let singleModelApiUrl =  'https://spagram.com/api/models.php?id=' + id + '&date=' + date + '&time=' + time;
+      let singleModelApiUrl =  'https://tsm.spagram.com/api/models.php?id=' + id + '&date=' + date + '&time=' + time;
         let setvalue = localStorage.setItem('singleModelApiUrl', singleModelApiUrl);
         router.push({
           pathname: '/' + slug,

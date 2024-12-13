@@ -11,7 +11,7 @@ const Login = (location) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://spagram.com/api/admin-backend/login.php', { email, password });
+      const response = await axios.post('https://tsm.spagram.com/api/admin-backend/login.php', { email, password });
       console.log(response.data.ok);
       if (!response.data.ok) {
             throw new Error("Login failed");
@@ -67,7 +67,7 @@ export default Login;
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
 
-//         axios.post('https://spagram.com/api/admin-backend/login.php', {
+//         axios.post('https://tsm.spagram.com/api/admin-backend/login.php', {
 //             firstName: 'Fred',
 //             lastName: 'Flintstone'
 //           })
@@ -90,7 +90,7 @@ export default Login;
 
 
 // //     try {
-// //       const response = await fetch("https://spagram.com/api/admin-backend/login.php", {
+// //       const response = await fetch("https://tsm.spagram.com/api/admin-backend/login.php", {
 // //         method: "POST",
 // //         headers: {
 // //           "Content-Type": "application/json",

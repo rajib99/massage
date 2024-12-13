@@ -9,8 +9,8 @@ import withAuth from "../../components/admin/withAuth";
 
 const Home = () => {
 
-  // const originalUrl = 'https://spagram.com/api/models.php';
-  const originalUrl = 'https://spagram.com/api/models.php';
+  // const originalUrl = 'https://tsm.spagram.com/api/models.php';
+  const originalUrl = 'https://tsm.spagram.com/api/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   const [area, setArea] = useState('');

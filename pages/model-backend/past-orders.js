@@ -9,7 +9,7 @@ import withAuth from "../../components/admin/withAuth";
 
 const PastOrders = () => {
 
-  const originalUrl = 'https://spagram.com/api/models.php';
+  const originalUrl = 'https://tsm.spagram.com/api/models.php';
   const [baseUrl, setBaseUrl] = useState(originalUrl);
 
   const [area, setArea] = useState('');

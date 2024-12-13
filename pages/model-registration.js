@@ -14,7 +14,7 @@ function ModelRegistration() {
     const [error, setError] = useState(null);
    
 
-    const singleApiUrl = "https://spagram.com/api/model-login"
+    const singleApiUrl = "https://tsm.spagram.com/api/model-login"
   
 
 
@@ -39,7 +39,7 @@ function ModelRegistration() {
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('https://spagram.com/api/login-model.php', formData);
+        const response = await axios.post('https://tsm.spagram.com/api/login-model.php', formData);
         console.log('rest', response.data);
         if(response.data.success == '1') {
               const { token } = response.data;
@@ -66,7 +66,7 @@ function ModelRegistration() {
     try {
       setLoading(true);
       console.log("endpoint hit")
-      const response = await axios.post('https://spagram.com/api/create-model-quick.php', formData);
+      const response = await axios.post('https://tsm.spagram.com/api/create-model-quick.php', formData);
       console.log('response', response)
       setFormData(null);
       console.log('insert model', response.data.message);

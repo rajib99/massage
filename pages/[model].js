@@ -95,7 +95,7 @@ function Booking() {
     const getcardEndingwith = () => {
       // let customerId = localStorage.getItem('customerid');
       // try {
-      //   const response = await axios.get('https://spagram.com/api/cardendwith.php?customerid=' + customerId);
+      //   const response = await axios.get('https://tsm.spagram.com/api/cardendwith.php?customerid=' + customerId);
       //   console.log('caardindwith', response.data);
       //   // if(response.data.success == '1') {
               
@@ -203,7 +203,7 @@ function Booking() {
 
        
         console.log('orderdata before confirmorder ', orderData);
-        const response = await axios.post('https://spagram.com/api/confirmorder.php', orderData);
+        const response = await axios.post('https://tsm.spagram.com/api/confirmorder.php', orderData);
         console.log('order retured', response.data);
         if(response.data.success == '1') {
               const { token } = response.data;
@@ -238,7 +238,7 @@ function Booking() {
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('https://spagram.com/api/login-customer.php', formData);
+        const response = await axios.post('https://tsm.spagram.com/api/login-customer.php', formData);
         console.log('rest', response.data);
         if(response.data.success == '1') {
               const { token } = response.data;
@@ -269,7 +269,7 @@ function Booking() {
       try {
         formData.selected_model = modelID;
 
-        const response = await axios.post('https://spagram.com/api/register-customer.php', formData);
+        const response = await axios.post('https://tsm.spagram.com/api/register-customer.php', formData);
         console.log('client data', formData);
         console.log('rest', response.data);
         if(response.data.success == '1') {
@@ -379,9 +379,9 @@ function Booking() {
       console.log('cdate', cdated);
       
 
-      const response = await axios.get('https://spagram.com/api/availability.php?modelid='+ modId + '&date=' + cdated);
+      const response = await axios.get('https://tsm.spagram.com/api/availability.php?modelid='+ modId + '&date=' + cdated);
 
-      console.log('availdata','https://spagram.com/api/availability.php?modelid='+ modId + '&date=' + cdated, response.data);
+      console.log('availdata','https://tsm.spagram.com/api/availability.php?modelid='+ modId + '&date=' + cdated, response.data);
       setModelAvailTime(response.data);
       if(response.data.success == '1') {
             const { token } = response.data;
@@ -499,7 +499,7 @@ function Booking() {
     userLogin();
     // const { data } = 
     // console.log('data', data);
-    // const modelUrl = 'https://spagram.com/api/models.php' +  '?id=' + data
+    // const modelUrl = 'https://tsm.spagram.com/api/models.php' +  '?id=' + data
     const getData = async () => {
         try {
           const response = await axios.get(singleApiUrl);
@@ -543,7 +543,7 @@ function Booking() {
       console.log('date and time', isDateSelected, '---', isTimeSelected);
 
         getData();
-  //       const availabilityUrl = 'https://spagram.com/api/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
+  //       const availabilityUrl = 'https://tsm.spagram.com/api/availability.php?id=' + singleApiUrl.split("=")[1] + 'date=' + isDateSelected + 'time=' + isTimeSelected;
  
   }, [singleApiUrl]);
 
