@@ -25,7 +25,7 @@ const MyPaymentForm = (params) => (
       // console.log('token generated', token);
       // console.log('cid', params.customer_id);
       // console.log('price', params.price);
-      const response = await fetch("https://api.tsm.cc/v1/square/pay.php", {
+      const response = await fetch("https://spagram.com/api/square/pay.php", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

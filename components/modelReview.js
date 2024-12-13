@@ -29,11 +29,11 @@ const ModelReview = React.memo(() => {
     if(avgratingArr[rand] == 4){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-empty.png" alt="Empty" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-empty.png" alt="Empty" />
         </div>
       );
     }
@@ -41,11 +41,11 @@ const ModelReview = React.memo(() => {
     if(avgratingArr[rand] == 4.5){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-half.png" alt="Half" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-half.png" alt="Half" />
         </div>
       );
     }
@@ -53,11 +53,11 @@ const ModelReview = React.memo(() => {
     if(avgratingArr[rand] == 5){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
         </div>
       );
     }
@@ -81,11 +81,11 @@ const ModelReview = React.memo(() => {
     if(possibleArr[rand] == 3.5){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-half.png" alt="Half" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-empty.png" alt="Empty" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-half.png" alt="Half" />
+          <img src="https://spagram.com/api/assets/img/star-empty.png" alt="Empty" />
   
         </div>
        );
@@ -94,11 +94,11 @@ const ModelReview = React.memo(() => {
     if(possibleArr[rand] == 4){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-empty.png" alt="Empty" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-empty.png" alt="Empty" />
         </div>
       );
     }
@@ -106,11 +106,11 @@ const ModelReview = React.memo(() => {
     if(possibleArr[rand] == 4.5){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-half.png" alt="Half" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-half.png" alt="Half" />
         </div>
       );
     }
@@ -118,11 +118,11 @@ const ModelReview = React.memo(() => {
     if(possibleArr[rand] == 5){
       return (
         <div>
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
-          <img src="https://api.tsm.cc/v1/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
+          <img src="https://spagram.com/api/assets/img/star-full.png" alt="Full" />
         </div>
       );
     }

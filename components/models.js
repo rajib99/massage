@@ -58,7 +58,7 @@ const modelist = [
 
 function Models({ photoOnlyView, apiUrl }) {
 
-   // const base_endpoint = 'https://api.tsm.cc/v1/models.php';
+   // const base_endpoint = 'https://spagram.com/api/models.php';
     //const [api_enpoint, setApi_enpoint] = useState(base_endpoint);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');

@@ -13,7 +13,7 @@ import ReviewSingle from "./reviewSingle.js";
 
 const Review = () => {
 
-  // const originalUrl = 'https://api.tsm.cc/v1/reviews.php';
+  // const originalUrl = 'https://spagram.com/api/reviews.php';
   // const [baseUrl, setBaseUrl] = useState(originalUrl);
   // const [servPri, setServPri] = useState([
   //   { id: 1, name: 'Service 1', Price: '10' },
@@ -48,7 +48,7 @@ const Review = () => {
   //     // review.picture_url = file;
   //     review.servicePrices = JSON.stringify(servPri);
   //     console.log('review final',review);
-  //     const response = await axios.post('https://api.tsm.cc/v1/update-customer.php', review);
+  //     const response = await axios.post('https://spagram.com/api/update-customer.php', review);
   //     setMessage('Update successful')
   //   } catch (error) {
   //     console.error(error);
@@ -62,7 +62,7 @@ const Review = () => {
   //   const customer_id = localStorage.getItem("customertoken");
   //   setId(customer_id);
   //   console.log('id', customer_id);
-  //   let url = "https://api.tsm.cc/v1/get-orders-to-review.php?customer_id=" + customer_id;
+  //   let url = "https://spagram.com/api/get-orders-to-review.php?customer_id=" + customer_id;
     
   //   const getData = async (id) => {
   //       try {
