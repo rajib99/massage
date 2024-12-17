@@ -47,7 +47,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header className={styles.header}>
-        <a className={styles.logoa}  href={CURRENT_URL}> <img className='logomain' src="https://tsm.spagram.com/api/assets/img/tsm-logo.png" /> </a>
+        <a className={styles.logoa}  href={CURRENT_URL}> <img className='logomain' src="https://tsm.spagram.com/api/images/logo2.png" /> </a>
         {/* <a className={styles.logoa}  href={CURRENT_URL}> <img className='logomain' src="images/logo2.png" /> </a> */}
         {home ? (
           <>            

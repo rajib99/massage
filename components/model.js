@@ -39,14 +39,9 @@ function Model({ slug, photoOnlyView, date, time, id, picture_url, name, service
       <div className={utilStyles.modelimgCnt}><img className={utilStyles.modelimg} src={picture_url} alt={name} />  </div> 
       <div  className={photoOnlyView? 'hide': 'show'}>
         <h2 className={utilStyles.modelName}>{name}</h2>
-        <div className={utilStyles.location}> <Image
-                priority
-                src="/images/location.png"
-                className={utilStyles.borderCircle}
-                height={20}
-                width={20}
-                alt=""
-              /> 
+        
+        <div className={utilStyles.location}> 
+          <img alt="location icon" width="20" src="https://tsm.spagram.com/api/images/location.png" />
      {/* <span> {service_area.replace(/,/g, ', ')} </span> */}
      <span> {service_area_primary} </span>
     </div>
